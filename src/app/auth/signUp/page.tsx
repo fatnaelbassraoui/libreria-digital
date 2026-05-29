@@ -2,24 +2,32 @@
 import Image from "next/image";
 import AuthForm from "../../../components/auth/AuthForm";
 
-const RegisterPage = () => {
+const SignUpPage = () => {
   return (
-    <div className="h-screen w-screen">
-      <div className="h-full">
-        {/* Image container  */}
-        <div className="flex h-full flex-wrap md:flex-row items-center justify-center lg:justify-between ">
-          <div className="shrink-1 grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12 hidden md:block">
-            <Image src="/image/loginImage.jpg" alt="auth" width={1000} height={1000} className="sm:w-8/12 sm:h-full md:w-full" />{" "}
-          </div>
-
-          {/*  Inputs container */}
-          <div className="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
-            <AuthForm type="signUp" />
-          </div>
+   <div className="flex min-h-screen w-screen">
+      {/* Column Left: Cover Image */}
+      <div className="hidden md:block md:w-1/2 lg:w-7/12 xl:w-8/12 relative bg-gray-900">
+        <Image 
+          src="/image/LoginImage.jpg" 
+          alt="Library Authentication" 
+          fill
+          priority
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover opacity-80"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-12">
+          <p className="text-white text-xl font-medium italic">
+            Start your journey into thousands of free timeless literary classics.
+          </p>
         </div>
+      </div>
+
+      {/* Column Right: Input Form */}
+      <div className="w-full md:w-1/2 lg:w-5/12 xl:w-4/12 flex items-center justify-center p-6 sm:p-12 bg-gray-50">
+        <AuthForm type="signUp" />
       </div>
     </div>
   );
 };
 
-export default RegisterPage;
+export default SignUpPage;

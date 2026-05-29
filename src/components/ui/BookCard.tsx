@@ -3,12 +3,20 @@
 import React from "react";
 import { Icon } from "@iconify/react"
 import { GutenbergBook } from "../../types/bookInterface";
-
+import { ReviewModal } from "./ReviewModal";
 interface BookCardProps {
   books: GutenbergBook[];
 }
 
 export const BookCard: React.FC<BookCardProps> = ({ books }) => {
+
+  const[isModalOpen, setIsModalOpen] = React.useState(false);
+  const[selectedBook, setSelectedBook] = React.useState<GutenbergBook | null>(null);
+  const handleAddToList = (book: GutenbergBook) => {
+    setSelectedBook(book);
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
       {books.map((book: GutenbergBook) => (
@@ -68,7 +76,10 @@ export const BookCard: React.FC<BookCardProps> = ({ books }) => {
                 {book.download_count?.toLocaleString() || 0}
               </span>
 
-              <button className="flex items-center gap-1 text-xs font-semibold text-white bg-green-700 hover:bg-green-800 px-3 py-1.5 rounded-lg transition-all shadow-sm active:scale-95">
+              <button 
+                className="flex items-center gap-1 text-xs font-semibold text-white bg-green-700 hover:bg-green-800 px-3 py-1.5 rounded-lg transition-all shadow-sm active:scale-95"
+                onClick={() => handleAddToList(book)}
+              >
                 <Icon icon="mdi:plus" width="14" />
                 Add to List
               </button>
@@ -76,6 +87,13 @@ export const BookCard: React.FC<BookCardProps> = ({ books }) => {
           </div>
         </div>
       ))}
+      {isModalOpen && (
+        <ReviewModal 
+          book={selectedBook!}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
   )
 }

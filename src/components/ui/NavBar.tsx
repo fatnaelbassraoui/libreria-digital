@@ -9,7 +9,7 @@ import { SearchBar } from "./SearchBar";
 
 export const NavBar = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const { user, loading, signOut } = useAuth();
+    const { user, signOut } = useAuth();
     const router = useRouter();
 
     const handleLogout= async ()=>{
@@ -22,10 +22,9 @@ export const NavBar = () => {
     }
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full bg-white border-b border-gray-200 h-16">
-      {/* Questo container blocca la larghezza al centro e non la fa "esplodere" su schermi grandi */}
       <div className="max-w-7xl h-full mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
         
-        {/* 1. LOGO */}
+        {/*  LOGO */}
         <div className="flex items-center shrink-0">
           <Link href="/" className="flex items-center gap-2 text-gray-900 hover:opacity-80">
             <svg className="w-6 h-6 text-green-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -37,25 +36,17 @@ export const NavBar = () => {
           </Link>
         </div>
 
-        {/* 2. SEARCHBAR (Centrata e proporzionata) */}
-        <div className="flex-1 max-w-md mx-auto w-full">
-          <SearchBar 
-            query={""} 
-            setQuery={function (value: string): void {
-              // Logica dello stato della ricerca
-            }}
-          />
-        </div>
+        
 
-        {/* 3. LIBRERIA / COLLEZIONE + 4. AVATAR */}
+        {/*  Collection + AVATAR */}
         <div className="flex items-center gap-4 shrink-0 relative">
           
-          {/* Link Libreria */}
-          <Link href="/collezione" className="text-sm font-semibold text-gray-600 hover:text-green-700 transition-colors">
-            La mia Collezione
+          {/* Link collection */}
+          <Link href="/bookscollection" className="text-sm font-semibold text-gray-600 hover:text-green-700 transition-colors">
+            My collection
           </Link>
 
-          {/* Bottone Menu Avatar */}
+          {/*  Menu Avatar button */}
           <button 
             type="button" 
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -68,14 +59,12 @@ export const NavBar = () => {
             />
           </button>
 
-          {/* Dropdown del Logout */}
+          {/*LogOut Dropdown  */}
           {isDropdownOpen && (
             <div className="absolute right-0 top-12 z-50 w-56 bg-white border border-gray-200 rounded-xl shadow-xl overflow-hidden divide-y divide-gray-100 animate-in fade-in slide-in-from-top-1 duration-100">
               <div className="py-3 px-4 bg-gray-50/50">
-                <p className="text-xs text-gray-400 font-medium">Account connesso</p>
-                <p className="text-sm font-semibold text-gray-900 truncate mt-0.5">
-                  {user?.user_metadata?.full_name || "Utente"}
-                </p>
+                <p className="text-xs text-gray-400 font-medium">Connected Account</p>
+                
                 <p className="text-xs text-gray-500 truncate">
                   {user?.email || "email@esempio.com"}
                 </p>

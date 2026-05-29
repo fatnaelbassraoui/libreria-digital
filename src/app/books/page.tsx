@@ -6,6 +6,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Spinner } from "../../components/ui/Spinner";
 import { BookCard } from "../../components/ui/BookCard";
+import { SearchBar } from "../../components/ui/SearchBar";
 
 type ApiError = {
   message: string;
@@ -55,7 +56,14 @@ const BookLists = () => {
       <NavBar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
-
+ <div className="flex-1 max-w-md mx-auto w-full">
+          <SearchBar 
+            query={""} 
+            setQuery={function (value: string): void {
+              // Logica dello stato della ricerca
+            }}
+          />
+        </div>
         <div className="mb-8">
   <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Available Books</h2>
   <p className="text-sm text-gray-500">Explore literary classics</p>

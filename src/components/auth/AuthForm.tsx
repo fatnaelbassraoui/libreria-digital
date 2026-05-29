@@ -22,6 +22,11 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
  
   const onSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    if (!email || !password) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -30,6 +35,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
           email,
           password,
         });
+
         if (error) throw error;
         toast.success("login successful!");
           router.push("/books")
@@ -40,9 +46,9 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
         });
         if (error) throw error;
         toast.success("Registration completed! Please check your email.");
+          router.push("/auth/signIn"); 
       }
       
-      router.push("/books"); 
       
     } catch (error: any) {
       toast.error(error.message || "An unexpected error occurred");
@@ -51,60 +57,81 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
     }
   };
 
+ 
   return (
     <form
-      className="flex flex-col gap-4 space-y-4 md:space-y-6 p-12 bg-white rounded-xl shadow-sm max-w-md mx-auto"
+      className="w-full max-w-md mx-auto p-8 sm:p-10 bg-white rounded-2xl shadow-xl border border-gray-100 space-y-6 transition-all"
       onSubmit={onSubmit}
     >
-      <div className="flex flex-col items-center justify-center px-2 mx-auto lg:py-0">
-        <h1 className="text-4xl font-bold text-sky-900">
-          {isLogin ? "Sign In" : "Sign Up"}
+      {/* Intestazione del Brand & Form */}
+      <div className="text-center space-y-2">
+        <h1 className="text-3xl font-extrabold text-gray-950 tracking-tight">
+          {isLogin ? "Welcome Back" : "Create Account"}
         </h1>
+        <p className="text-sm text-gray-500">
+          {isLogin ? "Sign in to access your digital library" : "Get started with your free account today"}
+        </p>
       </div>
 
-      <InputField
-        id="email"
-        type="email"
-        value={email}
-        label="Email"
-        setValue={setEmail}
-      />
-      <InputField
-        id="password"
-        type="password"
-        value={password}
-        label="Password"
-        setValue={setPassword}
-      />
+      {/* Campi di Input */}
+      <div className="space-y-4">
+        <InputField
+          id="email"
+          type="email"
+          value={email}
+          label="Email Address"
+          setValue={setEmail}
+        />
+        <InputField
+          id="password"
+          type="password"
+          value={password}
+          label="Password"
+          setValue={setPassword}
+        />
+      </div>
 
+      {/* Pulsante di Invio coordinato */}
       <button
-        className="w-full bg-sky-900 rounded-lg p-3.5 text-white font-semibold transition-colors hover:bg-sky-950 disabled:opacity-50"
+        className="w-full bg-green-700 rounded-xl p-3.5 text-white font-semibold text-sm transition-all hover:bg-green-800 focus:ring-4 focus:ring-green-100 disabled:opacity-50 disabled:pointer-events-none shadow-sm flex items-center justify-center gap-2"
         type="submit"
         disabled={isLoading}
       >
-        {isLoading ? "Loading..." : isLogin ? "Sign In" : "Sign Up"}
+        {isLoading ? (
+          <>
+            <span className="animate-pulse">Processing...</span>
+          </>
+        ) : isLogin ? (
+          "Sign In"
+        ) : (
+          "Sign Up"
+        )}
       </button>
 
-      {isLogin ? (
-        <div className="flex justify-end">
-          <Link
-            href="/auth/signUp"
-            className="text-sm font-bold text-sky-900 hover:underline"
-          >
-            Don't have an account? Sign Up
-          </Link>
-        </div>
-      ) : (
-        <div className="flex justify-end gap-1 text-sm">
-          <span className="text-gray-600">Already have an account?</span>
-          <Link
-            href="/auth/signIn"
-            className="font-bold underline text-sky-900 hover:text-sky-950"
-          >
-            Sign In
-          </Link>
-        </div>
-      )}
+      {/* Footer del Form per lo Switch dei pannelli */}
+      <div className="text-center pt-2 border-t border-gray-100 text-sm">
+        {isLogin ? (
+          <p className="text-gray-600">
+            Don't have an account?{" "}
+            <Link
+              href="/auth/signUp"
+              className="font-bold text-green-700 hover:text-green-800 hover:underline ml-1"
+            >
+              Sign Up
+            </Link>
+          </p>
+        ) : (
+          <p className="text-gray-600">
+            Already have an account?{" "}
+            <Link
+              href="/auth/signIn"
+              className="font-bold text-green-700 hover:text-green-800 hover:underline ml-1"
+            >
+              Sign In
+            </Link>
+          </p>
+        )}
+      </div>
     </form>
   );
 };

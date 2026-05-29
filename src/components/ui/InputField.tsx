@@ -5,7 +5,7 @@ interface InputFieldProps {
   label: string;
   value: string;
   setValue: (value: string) => void;
-  type?: "text" | "email" | "password"; // Esteso anche a "text" per futuri utilizzi (es. Nome utente)
+  type?: "text" | "email" | "password"; 
   required?: boolean; 
   placeholder?: string; 
 }
