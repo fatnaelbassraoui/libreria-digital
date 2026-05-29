@@ -2,13 +2,13 @@
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { useAuth } from "../../context/AuthContext";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { toast } from "react-toastify";
 import { useState } from "react";
-import { SearchBar } from "./SearchBar";
 
 export const NavBar = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const pathname = usePathname();
     const { user, signOut } = useAuth();
     const router = useRouter();
 
@@ -41,9 +41,9 @@ export const NavBar = () => {
         {/*  Collection + AVATAR */}
         <div className="flex items-center gap-4 shrink-0 relative">
           
-          {/* Link collection */}
-          <Link href="/bookscollection" className="text-sm font-semibold text-gray-600 hover:text-green-700 transition-colors">
-            My collection
+          
+          <Link href={pathname === "/bookscollection" ? "/books" : "/bookscollection"} className="text-sm font-semibold text-gray-600 hover:text-green-700 transition-colors">
+           {pathname === "/bookscollection" ?  "Books":"My collection"}
           </Link>
 
           {/*  Menu Avatar button */}

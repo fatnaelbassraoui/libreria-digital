@@ -1,19 +1,28 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import { WishlistBook } from "../../types/wishListInterface";
+import {ReviewModal} from "./ReviewModal";
+import { EditReviewModal } from "./EditReviewModal";
 
-interface WishlistGridProps {
+
+interface WishlistCardProps {
   collection: WishlistBook[];
   onRemove: (id: number, title: string) => void;
+ onSuccessUpdate: (id: number, rating: number, review: string) => void;
 }
 
-export const WishlistGrid: React.FC<WishlistGridProps> = ({ collection, onRemove }) => {
+export const WishlistCard: React.FC<WishlistCardProps> = ({ collection, onRemove, onSuccessUpdate }) => {
+ 
+  const [selectedBook, setSelectedBook] = useState<WishlistBook | null>(null);
+  
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
       {collection.map((book: WishlistBook) => (
         <div
           key={book.id}
-          className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden group h-[460px]"
+          className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden group h-[465px]"
         >
           {/* Image Container */}
           <div className="relative w-full h-52 bg-gray-900/5 flex items-center justify-center overflow-hidden border-b border-gray-100 shrink-0">
@@ -65,7 +74,7 @@ export const WishlistGrid: React.FC<WishlistGridProps> = ({ collection, onRemove
                   My Review:
                 </p>
                 <p className="text-xs text-gray-600 italic line-clamp-4 leading-relaxed mt-0.5">
-                  {book.review ? `"${book.review}"` : "No thoughts added for this book."}
+                  {book.review ? `${book.review}` : "No thoughts added for this book."}
                 </p>
               </div>
             </div>
@@ -84,6 +93,20 @@ export const WishlistGrid: React.FC<WishlistGridProps> = ({ collection, onRemove
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
+                  setSelectedBook(book);
+                }}
+                className="flex items-center gap-1 text-xs font-semibold text-green-600 hover:text-white hover:bg-green-600 border border-green-200 hover:border-green-600 px-2.5 py-1.5 rounded-lg transition-all active:scale-95 shadow-2xs cursor-pointer"
+                title="Edit Review"
+              >
+
+                <Icon icon="mdi:square-edit-outline" width="14" />
+                Edit
+              </button>
+
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
                   onRemove(book.id, book.title);
                 }}
                 className="flex items-center gap-1 text-xs font-semibold text-red-600 hover:text-white hover:bg-red-600 border border-red-200 hover:border-red-600 px-2.5 py-1.5 rounded-lg transition-all active:scale-95 shadow-2xs cursor-pointer"
@@ -96,6 +119,12 @@ export const WishlistGrid: React.FC<WishlistGridProps> = ({ collection, onRemove
           </div>
         </div>
       ))}
-    </div>
+      <EditReviewModal
+        isOpen={selectedBook !== null}
+        onClose={() => setSelectedBook(null)}
+        book={selectedBook}
+        onSuccessUpdate={onSuccessUpdate}
+      />
+    </div >
   );
 };

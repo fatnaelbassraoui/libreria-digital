@@ -5,24 +5,23 @@ import { supabase } from "../../lib/supabase";
 import { Spinner } from "./Spinner";
 import { toast } from "react-toastify";
 
+
 interface ReviewModalProps {
   isOpen: boolean;
   onClose: () => void;
   book: GutenbergBook;
 }
 
-export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, book }) => {
+export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, book}) => {
   const [rating, setRating] = useState<number>(5);
   const [review, setReview] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setError(null);
     try{
   // Chiamata RPC a Supabase
       const { error: rpcError } = await supabase.rpc('add_to_wishlist', {
@@ -37,12 +36,11 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, book 
       if (rpcError) throw rpcError;
 
       toast.success(`${book.title} added to your collection!`);
-      onClose(); // Chiudiamo il modal SOLO in caso di successo
-      setReview(""); // Resettiamo il form
+      onClose(); 
+      setReview(""); 
 }catch (err: any) {
       console.error("Error adding book to wishlist:", err);
       const msg = err.message || "An unexpected error occurred";
-      setError(msg);
       toast.error(`Failed to save: ${msg}`);}finally{
   setIsLoading(false);
 }
@@ -114,6 +112,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, book 
               id="review"
               rows={4}
               value={review}
+              maxLength={200}
               onChange={(e) => setReview(e.target.value)}
               className="block w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-green-100 focus:border-green-700 p-3.5 shadow-xs placeholder:text-gray-400 outline-hidden transition-all resize-none"
               placeholder="What did you think about this literary masterpiece?"
@@ -137,7 +136,6 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, book 
               type="submit" 
               className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-green-700 hover:bg-green-800 px-4 py-2.5 rounded-xl transition-all shadow-md active:scale-95"
             >
-              
                Save
             </button>) }
           </div>
