@@ -1,12 +1,14 @@
 
 "use client";
-import { GutenbergApiResponse, GutenbergBook } from "../../types/bookInterface";
+import {  GutenbergBook } from "../../types/bookInterface";
 import { NavBar } from "../../components/ui/NavBar";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Spinner } from "../../components/ui/Spinner";
 import { BookCard } from "../../components/ui/BookCard";
 import { SearchBar } from "../../components/ui/SearchBar";
+import { useDebounce } from "../../hooks/useDebounce";
+import { getBooks } from "../../api/bookAp";
 
 type ApiError = {
   message: string;
@@ -18,21 +20,22 @@ const BookLists = () => {
   console.log('book lists:', bookList);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+  const [serchValue, setSerchValue] = useState<string>("");
+
+
+
+  const debouncedSearchvalue = useDebounce(serchValue, 500);
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
         setIsLoading(true);
+        const url = debouncedSearchvalue
+          ? `https://project-gutenberg-free-books-api1.p.rapidapi.com/books?q=${debouncedSearchvalue}`
+          : `https://project-gutenberg-free-books-api1.p.rapidapi.com/books`;
 
-        const response = await axios.get<GutenbergApiResponse>("https://project-gutenberg-free-books-api1.p.rapidapi.com/books", {
-          headers: {
-            'Content-Type': 'application/json',
-            'X-RapidAPI-Key': process.env.NEXT_PUBLIC_RAPID_API_KEY || '',
-            'X-RapidAPI-Host': process.env.NEXT_PUBLIC_RAPID_API_HOST || ''
+        const response = await getBooks(url);
 
-          }
-        }
-        );
         if (response.status !== 200) {
           throw new Error(`Error fetching books: ${response.statusText}`);
         }
@@ -49,25 +52,23 @@ const BookLists = () => {
       }
     }
     fetchBooks();
-  }, []);
+  }, [debouncedSearchvalue]);
 
- return (
+  return (
     <div className="min-h-screen bg-gray-50">
       <NavBar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
- <div className="flex-1 max-w-md mx-auto w-full">
-          <SearchBar 
-            query={""} 
-            setQuery={function (value: string): void {
-              // Logica dello stato della ricerca
-            }}
+        <div className="flex-1 max-w-md mx-auto w-full">
+          <SearchBar
+            value={serchValue}
+            setQuery={setSerchValue}
           />
         </div>
         <div className="mb-8">
-  <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Available Books</h2>
-  <p className="text-sm text-gray-500">Explore literary classics</p>
-</div>
+          <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Available Books</h2>
+          <p className="text-sm text-gray-500">Explore literary classics</p>
+        </div>
 
         {isLoading ? (
           <div className="flex items-center justify-center h-64">
@@ -78,13 +79,13 @@ const BookLists = () => {
             {error.message}
           </div>
         ) : (
-         <BookCard books={bookList} />
+          <BookCard books={bookList} />
         )}
       </main>
     </div>
   );
-    
-  
+
+
 };
 
 export default BookLists;
