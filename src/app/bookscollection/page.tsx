@@ -7,7 +7,7 @@ import { WishlistBook } from "@/src/types/wishListInterface";
 import { toast } from "react-toastify";
 import { WishlistCard } from "../../components/ui/WishlistCard";
 import { EmptyState } from "../../components/ui/EmptyState";
-import { getCollection, removeFromCollection } from "../../api/boosCollectioApi";
+import { getCollection, removeFromCollection } from "../../api/booksCollectioApi";
 import { useAuth } from "../../context/AuthContext";
 import { handleError } from "../../utils/handleError";
 
