@@ -3,8 +3,8 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { useAuth } from "../../context/AuthContext";
 import { useRouter, usePathname } from "next/navigation";
-import { toast } from "react-toastify";
 import { useState } from "react";
+import { handleError } from "../../utils/handleError";
 
 export const NavBar = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -16,8 +16,8 @@ export const NavBar = () => {
         try{
             await signOut();
             router.push("/auth/signIn");
-        }catch(error:any){
-            toast.error("Error during logout:", error);
+        }catch(error:unknown){
+           handleError(error,"Logout failed");
         }
     }
   return (

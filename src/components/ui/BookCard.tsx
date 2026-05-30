@@ -10,9 +10,9 @@ interface BookCardProps {
 
 export const BookCard: React.FC<BookCardProps> = ({ books }) => {
 
-  const[isModalOpen, setIsModalOpen] = React.useState(false);
-  const[selectedBook, setSelectedBook] = React.useState<GutenbergBook | null>(null);
- 
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [selectedBook, setSelectedBook] = React.useState<GutenbergBook | null>(null);
+
   const handleAddToList = (book: GutenbergBook) => {
     setSelectedBook(book);
     setIsModalOpen(true);
@@ -29,12 +29,14 @@ export const BookCard: React.FC<BookCardProps> = ({ books }) => {
           <div className="relative w-full h-60 bg-gray-900/5 flex items-center justify-center overflow-hidden border-b border-gray-100 shrink-0">
             {book.cover_image ? (
               <>
-
+                // Blurred backdrop image for depth effect, stretched to fill the container
+                // with opacity applied to keep it subtle and non-intrusive.       
                 <img
                   src={book.cover_image}
                   alt=""
                   className="absolute inset-0 w-full h-full object-cover blur-md opacity-30 scale-110 pointer-events-none"
                 />
+               // Sharp front cover: centered, maintains aspect ratio, with a drop shadow and a scale effect on hover.
 
                 <img
                   src={book.cover_image}
@@ -77,7 +79,7 @@ export const BookCard: React.FC<BookCardProps> = ({ books }) => {
                 {book.download_count?.toLocaleString() || 0}
               </span>
 
-              <button 
+              <button
                 className="flex items-center gap-1 text-xs font-semibold text-white bg-green-700 hover:bg-green-800 px-3 py-1.5 rounded-lg transition-all shadow-sm active:scale-95"
                 onClick={() => handleAddToList(book)}
               >
@@ -89,7 +91,7 @@ export const BookCard: React.FC<BookCardProps> = ({ books }) => {
         </div>
       ))}
       {isModalOpen && (
-        <ReviewModal 
+        <ReviewModal
           book={selectedBook!}
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}

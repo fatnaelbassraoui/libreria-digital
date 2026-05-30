@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { supabase } from "../../lib/supabase";
-import InputField from "../ui/InputField"; 
+import InputField from "../ui/InputField";
 import "react-toastify/dist/ReactToastify.css";
 import { handleError } from "../../utils/handleError";
 import { Spinner } from "../ui/Spinner";
@@ -18,11 +18,11 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
- 
+
   const isLogin = type === "signIn";
   const router = useRouter();
 
- 
+
   const onSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (!email || !password) {
@@ -41,25 +41,25 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
 
         if (error) throw error;
         toast.success("login successful!");
-          router.push("/books")
-        } else {
+        router.push("/books")
+      } else {
         const { error } = await supabase.auth.signUp({
           email,
           password,
         });
         if (error) throw error;
         toast.success("Registration completed! Please check your email.");
-          router.push("/auth/signIn"); 
+        router.push("/auth/signIn");
       }
 
-    } catch (error:unknown) {
-     handleError(error, isLogin ? "Login failed. Please check your credentials." : "Registration failed. Please try again.");
+    } catch (error: unknown) {
+      handleError(error, isLogin ? "Login failed. Please check your credentials." : "Registration failed. Please try again.");
     } finally {
       setIsLoading(false);
     }
   };
 
- 
+
   return (
     <form
       className="w-full max-w-md mx-auto p-8 sm:p-10 bg-white rounded-2xl shadow-xl border border-gray-100 space-y-6 transition-all"
