@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "../context/AuthContext";
+import { Analytics } from "@vercel/analytics/next";
 
 // defining the fonts with next/font for optimized loading and performance
 const geistSans = Geist({
@@ -31,6 +32,7 @@ export default function RootLayout({
     <html
       lang="it" 
       suppressHydrationWarning
+      
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body 
@@ -41,6 +43,7 @@ export default function RootLayout({
           <main className="flex-grow">
             {children}
           </main>
+          <Analytics />
         </AuthProvider>
       </body>
     </html>
