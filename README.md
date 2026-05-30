@@ -5,6 +5,7 @@
 
 **Digital Library** is a web application that allows users to explore a vast catalog of books from the Gutenberg library. Users can search for their favorite volumes and build a personal collection, where they can track their reading by adding personal reviews, thoughts, and ratings.
 
+🔗 **Live Demo:** [libreria-digital-rust.vercel.app](https://vercel.app)
 
 
 ## 🚀 Tech Stack
@@ -23,7 +24,8 @@
 - ⭐ Rate and review your books
 - ✏️ Edit your reviews
 - 🗑️ Remove books from your collection
-- 📱 Responsive design
+- 📊 **Real-time Analytics** — Integrated with Vercel Analytics to monitor page views and application performance.
+
 
 ## 🛠️ Getting Started
 
