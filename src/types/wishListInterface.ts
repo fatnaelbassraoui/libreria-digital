@@ -1,5 +1,3 @@
-// types/bookInterface.ts
-
 export interface WishlistBook {
   id: number;           
   user_id: string;     
