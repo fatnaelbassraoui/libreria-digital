@@ -1,4 +1,3 @@
-// src/utils/handleError.ts
 import { toast } from "react-toastify";
 
 export const handleError = (error: unknown, fallbackMessage: string): void => {

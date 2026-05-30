@@ -49,7 +49,7 @@ export const EditReviewModal: React.FC<EditReviewModalProps> = ({
         .eq('id', book.id);
 
       if (updateError) throw updateError;
-
+      toast.success(`"${book.title}" review updated successfully!`);
       onSuccessUpdate(book.id, rating, review.trim());
      onClose();
     } catch (err: unknown) {

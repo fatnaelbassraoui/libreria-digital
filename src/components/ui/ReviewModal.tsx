@@ -4,7 +4,7 @@ import { GutenbergBook } from "../../types/bookInterface";
 import { Spinner } from "./Spinner";
 import { handleError } from "@/src/utils/handleError";
 import { addBookToWishList } from "@/src/api/addBookToWishListApi";
-
+import { toast } from "react-toastify";
 
 interface ReviewModalProps {
   isOpen: boolean;
@@ -23,9 +23,8 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, book 
     e.preventDefault();
     setIsLoading(true);
     try {
-
       await addBookToWishList({ book, rating, review});
-
+      toast.success(`"${book.title}" added to your collection!`);
       onClose();
     } catch (err: unknown) {
       handleError(err, 'An error occurred while adding the book to your collection. Please try again later.');

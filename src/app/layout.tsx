@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "../context/AuthContext";
 import { Analytics } from "@vercel/analytics/next";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // defining the fonts with next/font for optimized loading and performance
 const geistSans = Geist({
@@ -30,20 +32,34 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="it" 
+      lang="it"
       suppressHydrationWarning
-      
+
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body 
-        suppressHydrationWarning={true} 
+      <body
+        suppressHydrationWarning={true}
         className="min-h-full flex flex-col bg-gray-50 text-gray-900 font-sans"
       >
         <AuthProvider>
           <main className="flex-grow">
             {children}
           </main>
+           <ToastContainer
+            position="top-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        style={{ zIndex: 999999 }}
+          />
           <Analytics />
+    
         </AuthProvider>
       </body>
     </html>
