@@ -1,5 +1,5 @@
 import Image from "next/image";
-import AuthForm from "../auth/AuthForm";
+import AuthForm from "./AuthForm";
 
 interface AuthTemplateProps {
     title: string,
