@@ -48,7 +48,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
           password,
         });
         if (error) throw error;
-        toast.success("Registration completed! Please check your email.");
+        toast.success("Registration completed!");
         router.push("/auth/signIn");
       }
 
