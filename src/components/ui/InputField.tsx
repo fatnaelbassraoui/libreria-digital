@@ -5,9 +5,9 @@ interface InputFieldProps {
   label: string;
   value: string;
   setValue: (value: string) => void;
-  type?: "text" | "email" | "password"; 
-  required?: boolean; 
-  placeholder?: string; 
+  type?: "text" | "email" | "password";
+  required?: boolean;
+  placeholder?: string;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -15,14 +15,14 @@ const InputField: React.FC<InputFieldProps> = ({
   label,
   value,
   setValue,
-  type = "text", 
-  required = true, 
+  type = "text",
+  required = true,
   placeholder,
 }) => {
   return (
     <div className="flex flex-col gap-2 w-full">
-      <label 
-        htmlFor={id} 
+      <label
+        htmlFor={id}
         className="text-sm font-medium text-sky-900 cursor-pointer"
       >
         {label}

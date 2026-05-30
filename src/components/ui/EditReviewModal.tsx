@@ -6,6 +6,7 @@ import { supabase } from "../../lib/supabase";
 import { Spinner } from "./Spinner";
 import { toast } from "react-toastify";
 import { WishlistBook } from "../../types/wishListInterface";
+import { handleError } from "../../utils/handleError";
 
 interface EditReviewModalProps {
   isOpen: boolean;
@@ -14,17 +15,17 @@ interface EditReviewModalProps {
   onSuccessUpdate: (id: number, rating: number, review: string) => void;
 }
 
-export const EditReviewModal: React.FC<EditReviewModalProps> = ({ 
-  isOpen, 
-  onClose, 
-  book, 
-  onSuccessUpdate 
+export const EditReviewModal: React.FC<EditReviewModalProps> = ({
+  isOpen,
+  onClose,
+  book,
+  onSuccessUpdate
 }) => {
   const [rating, setRating] = useState<number>(5);
   const [review, setReview] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // Quando si apre, carica SOLO il voto e la recensione attuali
+
   useEffect(() => {
     if (isOpen && book) {
       setRating(book.rating);
@@ -39,26 +40,20 @@ export const EditReviewModal: React.FC<EditReviewModalProps> = ({
     setIsLoading(true);
 
     try {
-      // 🛠️ Aggiorna SOLO rating e review su Supabase
       const { error: updateError } = await supabase
         .from('wishlist')
-        .update({ 
-          rating: rating, 
-          review: review.trim() || null 
+        .update({
+          rating: rating,
+          review: review.trim() || null
         })
-        .eq('id', book.id); // Trova il libro tramite la sua ID univoca
+        .eq('id', book.id);
 
       if (updateError) throw updateError;
 
-      // Aggiorna lo stato nella schermata
-     if (typeof onSuccessUpdate === "function") {
-  onSuccessUpdate(book.id, rating, review.trim());
-}
-      toast.success("Review updated successfully!");
-      onClose();
-    } catch (err: any) {
-      console.error("Error updating review:", err);
-      toast.error("Failed to update the review. Try again.");
+      onSuccessUpdate(book.id, rating, review.trim());
+     onClose();
+    } catch (err: unknown) {
+      handleError(err, "Failed to update the review. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -67,7 +62,7 @@ export const EditReviewModal: React.FC<EditReviewModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
       <div className="relative w-full max-w-md bg-white border border-gray-100 rounded-2xl shadow-2xl overflow-hidden">
-        
+
         {/* Header */}
         <div className="flex items-center justify-between border-b border-gray-100 p-5 bg-gray-50/50">
           <div className="space-y-0.5">
@@ -83,17 +78,17 @@ export const EditReviewModal: React.FC<EditReviewModalProps> = ({
 
         {/* Form con SOLO rating e review */}
         <form onSubmit={handleSubmit} className="p-6 space-y-5">
-          
+
           {/* Stelle (Rating) */}
           <div className="space-y-2">
             <label className="block text-xs font-bold uppercase tracking-wider text-gray-700">Your Rating</label>
             <div className="flex items-center gap-1">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button key={star} type="button" onClick={() => setRating(star)} className="cursor-pointer transition-transform active:scale-90">
-                  <Icon 
-                    icon={star <= rating ? "mdi:star" : "mdi:star-outline"} 
-                    className={star <= rating ? "text-amber-400" : "text-gray-300"} 
-                    width="28" 
+                  <Icon
+                    icon={star <= rating ? "mdi:star" : "mdi:star-outline"}
+                    className={star <= rating ? "text-amber-400" : "text-gray-300"}
+                    width="28"
                     height="28"
                   />
                 </button>
