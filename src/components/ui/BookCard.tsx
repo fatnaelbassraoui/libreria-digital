@@ -12,6 +12,7 @@ export const BookCard: React.FC<BookCardProps> = ({ books }) => {
 
   const[isModalOpen, setIsModalOpen] = React.useState(false);
   const[selectedBook, setSelectedBook] = React.useState<GutenbergBook | null>(null);
+ 
   const handleAddToList = (book: GutenbergBook) => {
     setSelectedBook(book);
     setIsModalOpen(true);

@@ -1,62 +1,63 @@
 "use client";
+
+import React, { useEffect } from "react";
 import { Spinner } from "@/src/components/ui/Spinner";
 import { NavBar } from "../../components/ui/NavBar";
-import { supabase } from "../../lib/supabase";
 import { WishlistBook } from "@/src/types/wishListInterface";
-import React, { useEffect } from "react";
 import { toast } from "react-toastify";
 import { WishlistCard } from "../../components/ui/WishlistCard";
 import { EmptyState } from "../../components/ui/EmptyState";
+import { getCollection, removeFromCollection } from "../../api/boosCollectioApi";
+import { useAuth } from "../../context/AuthContext";
+import { handleError } from "../../utils/handleError";
 
 const BooksCollection = () => {
   const [collection, setCollection] = React.useState<WishlistBook[]>([]);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [error, setError] = React.useState<Error | null>(null);
+  const [isLoading, setIsLoading] = React.useState(true); // setted to true to show spinner on initial load and avoid flash of empty state
+
+  const { user } = useAuth();
 
   useEffect(() => {
+    if (!user) return; // if user is not logged in, skip fetching
+
+    let isMounted = true;
+
     const fetchCollection = async () => {
       setIsLoading(true);
-      setError(null);
       try {
-        const { data: { user } } = await supabase.auth.getUser();
-        const response = await supabase.from('wishlist').select('*').eq('user_id', user?.id);
-        if (!response.data) {
-          throw new Error("Failed to fetch collection");
-        }
+        const data = await getCollection(user.id);
+        setCollection(data);
 
-        setCollection(response.data);
-
-      } catch (error) {
-        console.error("Error fetching collection:", error);
-        setError(error as Error);
+      } catch (error: unknown) {
+       
+        if (!isMounted) return;
+  handleError(error, "Errore nel caricamento della collezione");
       } finally {
         setIsLoading(false);
       }
-    }
+    };
 
+    fetchCollection();
 
-    fetchCollection()
+    return () => {
+      isMounted = false; // ← cleanup: prevent state updates if component unmounts before fetch completes
+    };
+  }, [user]);
 
-  }, []);
-
-const handleRemove = async (id: number, title: string) => {
+  const handleRemove = async (id: number, title: string) => {
+    // confirmation dialog before deletion using browser's built-in confirm function
     if (!confirm(`Are you sure you want to remove "${title}" from your collection?`)) {
       return;
     }
 
     try {
-      const { error: deleteError } = await supabase
-        .from('wishlist')
-        .delete()
-        .eq('id', id);
-
-      if (deleteError) throw deleteError;
+      await removeFromCollection(id);
 
       setCollection((prev) => prev.filter((book) => book.id !== id));
       toast.success(`"${title}" removed from your collection`);
-    } catch (err: any) {
-      console.error("Error deleting book:", err);
-      toast.error("Failed to remove the book. Try again.");
+      
+    } catch (err: unknown) {
+      handleError(err, "Failed to remove the book. Try again.");
     }
   };
 
@@ -80,15 +81,11 @@ const handleRemove = async (id: number, title: string) => {
           <div className="flex items-center justify-center h-64">
             <Spinner />
           </div>
-        ) : error ? (
-          <div className="text-red-500 p-4 bg-red-50 rounded-lg border border-red-200">
-            {error.message}
-          </div>
         ) : collection.length === 0 ? (
           /* empty statement management */
           <EmptyState />
         ) : (
-          <WishlistCard collection={collection} onRemove={handleRemove}  onSuccessUpdate={handleUpdateLocalState}/>
+          <WishlistCard collection={collection} onRemove={handleRemove} onSuccessUpdate={handleUpdateLocalState} />
         )}
       </main>
     </div>
@@ -96,3 +93,4 @@ const handleRemove = async (id: number, title: string) => {
 };
 
 export default BooksCollection;
+

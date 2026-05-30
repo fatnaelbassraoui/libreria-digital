@@ -2,35 +2,29 @@
 "use client";
 import {  GutenbergBook } from "../../types/bookInterface";
 import { NavBar } from "../../components/ui/NavBar";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Spinner } from "../../components/ui/Spinner";
 import { BookCard } from "../../components/ui/BookCard";
 import { SearchBar } from "../../components/ui/SearchBar";
 import { useDebounce } from "../../hooks/useDebounce";
-import { getBooks } from "../../api/bookAp";
+import { getBooks } from "../../api/booksApi";
+import { handleError } from "../../utils/handleError";
 
-type ApiError = {
-  message: string;
-  code: number;
-};
+
 const BookLists = () => {
 
   const [bookList, setBookList] = useState<GutenbergBook[]>([]);
-  console.log('book lists:', bookList);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
   const [serchValue, setSerchValue] = useState<string>("");
 
-
-
+// debounce the search value to avoid making API calls on every keystroke
   const debouncedSearchvalue = useDebounce(serchValue, 500);
 
   useEffect(() => {
     const fetchBooks = async () => {
+      setIsLoading(true);
       try {
-        setIsLoading(true);
-        const url = debouncedSearchvalue
+        setIsLoading(true); const url = debouncedSearchvalue
           ? `https://project-gutenberg-free-books-api1.p.rapidapi.com/books?q=${debouncedSearchvalue}`
           : `https://project-gutenberg-free-books-api1.p.rapidapi.com/books`;
 
@@ -40,13 +34,8 @@ const BookLists = () => {
           throw new Error(`Error fetching books: ${response.statusText}`);
         }
         setBookList(response.data.results);
-      } catch (err) {
-        if (axios.isAxiosError<ApiError>(err)) {
-          console.error(err.response?.data.message);
-          setError(new Error(`API Error: ${err.response?.data.message} (Status: ${err.response?.status})`));
-        } else {
-          setError(err instanceof Error ? err : new Error("An unexpected error occurred"));
-        }
+      } catch (err:unknown) {
+       handleError(err, "An unexpected error occurred while fetching books.");
       } finally {
         setIsLoading(false);
       }
@@ -73,10 +62,6 @@ const BookLists = () => {
         {isLoading ? (
           <div className="flex items-center justify-center h-64">
             <Spinner />
-          </div>
-        ) : error ? (
-          <div className="text-red-500 p-4 bg-red-50 rounded-lg border border-red-200">
-            {error.message}
           </div>
         ) : (
           <BookCard books={bookList} />
