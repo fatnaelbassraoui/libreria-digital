@@ -1,8 +1,11 @@
-# 📚 Libreria Digitale
+# 📚 Digital Library
 
-<img width="740" height="436" alt="WishList" src="https://github.com/user-attachments/assets/8b620047-3ce6-4fdb-acb0-536e38d0a831" />
+<img width="1046" height="858" alt="Cattura" src="https://github.com/user-attachments/assets/13f5318a-7237-4148-858a-bf156603112b" />
 
-A digital library app where you can search for books from the Gutenberg catalog and add them to your personal collection.
+
+**Digital Library** is a web application that allows users to explore a vast catalog of books from the Gutenberg library. Users can search for their favorite volumes and build a personal collection, where they can track their reading by adding personal reviews, thoughts, and ratings.
+
+
 
 ## 🚀 Tech Stack
 
