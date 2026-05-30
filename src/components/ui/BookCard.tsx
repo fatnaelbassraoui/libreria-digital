@@ -29,15 +29,15 @@ export const BookCard: React.FC<BookCardProps> = ({ books }) => {
           <div className="relative w-full h-60 bg-gray-900/5 flex items-center justify-center overflow-hidden border-b border-gray-100 shrink-0">
             {book.cover_image ? (
               <>
-                // Blurred backdrop image for depth effect, stretched to fill the container
-                // with opacity applied to keep it subtle and non-intrusive.       
+                {/*  Blurred backdrop image for depth effect, stretched to fill the container
+                with opacity applied to keep it subtle and non-intrusive.        */}
                 <img
                   src={book.cover_image}
                   alt=""
                   className="absolute inset-0 w-full h-full object-cover blur-md opacity-30 scale-110 pointer-events-none"
                 />
-               // Sharp front cover: centered, maintains aspect ratio, with a drop shadow and a scale effect on hover.
-
+                {/* Main cover image, centered and scaled to fit within the container while maintaining aspect ratio. 
+                It has a subtle shadow and a border to make it stand out, and it scales up slightly on hover for an interactive feel. */}
                 <img
                   src={book.cover_image}
                   alt={book.title}
