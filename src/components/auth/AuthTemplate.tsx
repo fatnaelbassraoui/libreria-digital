@@ -11,7 +11,7 @@ return(
      <div className="flex min-h-screen w-screen">
      <div className="hidden md:block md:w-1/2 lg:w-7/12 xl:w-8/12 relative bg-gray-900">
         <Image 
-          src="/image/LoginImage.jpg" 
+          src="/images/LoginImage.jpg" 
           alt="Library Authentication" 
           fill
           priority
