@@ -24,7 +24,7 @@ const BookLists = () => {
     const fetchBooks = async () => {
       setIsLoading(true);
       try {
-        setIsLoading(true); const url = debouncedSearchvalue
+        const url = debouncedSearchvalue
           ? `https://project-gutenberg-free-books-api1.p.rapidapi.com/books?q=${debouncedSearchvalue}`
           : `https://project-gutenberg-free-books-api1.p.rapidapi.com/books`;
 

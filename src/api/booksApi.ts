@@ -1,5 +1,8 @@
+
+//"use server";
 import axios from "axios";
 import { GutenbergApiResponse } from "../types/bookInterface";
+
 
 export const getBooks =async (url:string)=>{
     const response = await axios.get<GutenbergApiResponse>(url, {
@@ -11,5 +14,6 @@ export const getBooks =async (url:string)=>{
           }
         }
         );
-    return response;
+     return response;
+ //  return response.data.results;
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react"; // ← Importiamo FormEvent in modo pulito e moderno
+import { useState } from "react"; 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "react-toastify";
@@ -41,7 +41,8 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
 
         if (error) throw error;
         toast.success("login successful!");
-        router.push("/books")
+       
+          router.push("/books");
       } else {
         const { error } = await supabase.auth.signUp({
           email,
