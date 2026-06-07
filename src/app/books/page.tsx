@@ -47,7 +47,7 @@ const BookLists = () => {
     <div className="min-h-screen bg-gray-50">
       <NavBar />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
         <div className="flex-1 max-w-md mx-auto w-full">
           <SearchBar
             value={serchValue}
@@ -66,7 +66,7 @@ const BookLists = () => {
         ) : (
           <BookCard books={bookList} />
         )}
-      </main>
+      </div>
     </div>
   );
 
