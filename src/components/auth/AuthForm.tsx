@@ -23,7 +23,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
   const router = useRouter();
 
 
-  const onSubmit = async (e: React.SyntheticEvent) => {
+  const onSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!email || !password) {
       toast.error("Please fill in all fields");

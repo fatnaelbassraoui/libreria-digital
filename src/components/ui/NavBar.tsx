@@ -12,7 +12,8 @@ export const NavBar = () => {
     const { user, signOut } = useAuth();
     const router = useRouter();
 
-    const handleLogout= async ()=>{
+    const handleLogout= async (e:React.MouseEvent<HTMLButtonElement>)=>{
+      e.stopPropagation(); // Prevent the click event from bubbling up to the dropdown
         try{
             await signOut();
             router.push("/auth/signIn");
@@ -26,14 +27,14 @@ export const NavBar = () => {
         
         {/*  LOGO */}
         <div className="flex items-center shrink-0">
-          <Link href="/" className="flex items-center gap-2 text-gray-900 hover:opacity-80">
+          <div  className="flex items-center gap-2 text-gray-900 hover:opacity-80">
             <svg className="w-6 h-6 text-green-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.039V18M12 6.039c-1.128-.694-2.433-1.039-3.75-1.039-1.317 0-2.622.345-3.75 1.039V18.06c1.128-.695 2.433-1.04 3.75-1.04 1.317 0 2.622.345 3.75 1.04M12 6.039c1.128-.694 2.433-1.039 3.75-1.039 1.317 0 2.622.345 3.75 1.039V18.06c-1.128-.695-2.433-1.04-3.75-1.04-1.317 0-2.622.345-3.75 1.04" />
             </svg>
             <span className="text-lg font-bold tracking-tight text-gray-900 hidden sm:block">
               DigitalLibrary
             </span>
-          </Link>
+          </div>
         </div>
 
         

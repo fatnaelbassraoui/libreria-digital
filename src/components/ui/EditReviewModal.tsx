@@ -35,7 +35,7 @@ export const EditReviewModal: React.FC<EditReviewModalProps> = ({
 
   if (!isOpen || !book) return null;
 
-  const handleSubmit = async (e: React.SyntheticEvent) => {
+  const handleSubmit = async (e:React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
 
