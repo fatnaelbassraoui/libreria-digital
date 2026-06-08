@@ -2,20 +2,19 @@
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import { WishlistBook } from "../../types/wishListInterface";
-import {ReviewModal} from "./ReviewModal";
 import { EditReviewModal } from "./EditReviewModal";
-
+import Image from "next/image";
 
 interface WishlistCardProps {
   collection: WishlistBook[];
   onRemove: (id: number, title: string) => void;
- onSuccessUpdate: (id: number, rating: number, review: string) => void;
+  onSuccessUpdate: (id: number, rating: number, review: string) => void;
 }
 
 export const WishlistCard: React.FC<WishlistCardProps> = ({ collection, onRemove, onSuccessUpdate }) => {
- 
+
   const [selectedBook, setSelectedBook] = useState<WishlistBook | null>(null);
-  
+
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
@@ -28,15 +27,24 @@ export const WishlistCard: React.FC<WishlistCardProps> = ({ collection, onRemove
           <div className="relative w-full h-52 bg-gray-900/5 flex items-center justify-center overflow-hidden border-b border-gray-100 shrink-0">
             {book.cover_image ? (
               <>
-                <img
+                {/* Immagine di sfondo sfocata */}
+                <Image
                   src={book.cover_image}
                   alt=""
-                  className="absolute inset-0 w-full h-full object-cover blur-md opacity-30 scale-110 pointer-events-none"
+                  fill
+                  priority={false}
+                  className="object-cover blur-md opacity-30 scale-110 pointer-events-none"
+                  sizes="(max-width: 768px) 100vw, 20vw"
                 />
-                <img
+                {/* Immagine principale della copertina */}
+                <Image
+
                   src={book.cover_image}
                   alt={book.title}
+                  width={160}  // Imposta una larghezza base indicativa per l'ottimizzazione
+                  height={240}
                   className="relative z-10 max-w-[80%] max-h-[85%] object-contain rounded shadow-[0_6px_12px_rgba(0,0,0,0.2)] border border-white/20"
+                  sizes="(max-width: 768px) 80vw, 15vw"
                 />
               </>
             ) : (

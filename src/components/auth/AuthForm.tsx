@@ -115,7 +115,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
       <div className="text-center pt-2 border-t border-gray-100 text-sm">
         {isLogin ? (
           <p className="text-gray-600">
-            Don't have an account?{" "}
+           Don&apos;t have an account?{" "}
             <Link
               href="/auth/signUp"
               className="font-bold text-green-700 hover:text-green-800 hover:underline ml-1"

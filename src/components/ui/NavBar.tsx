@@ -53,11 +53,9 @@ export const NavBar = () => {
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             className="flex text-sm bg-gray-200 rounded-full focus:ring-4 focus:ring-gray-100 transition-transform active:scale-95" 
           >
-            <img 
-              className="w-8 h-8 rounded-full object-cover" 
-              src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" 
-              alt="Profilo"
-            />
+            <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+  <Icon icon="mdi:account" width="20" className="text-gray-600" />
+</div>
           </button>
 
           {/*LogOut Dropdown  */}

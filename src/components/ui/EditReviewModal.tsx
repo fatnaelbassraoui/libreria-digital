@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { Icon } from "@iconify/react";
 import { supabase } from "../../lib/supabase";
 import { Spinner } from "./Spinner";
@@ -21,17 +21,18 @@ export const EditReviewModal: React.FC<EditReviewModalProps> = ({
   book,
   onSuccessUpdate
 }) => {
+  // state to track the previous book ID and avoid unnecessary state updates when the same book is passed again
+const [prevBookId, setPrevBookId] = useState<number | null>(null);
   const [rating, setRating] = useState<number>(5);
   const [review, setReview] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-
-  useEffect(() => {
-    if (isOpen && book) {
-      setRating(book.rating);
-      setReview(book.review || "");
-    }
-  }, [isOpen, book]);
+ // Sincronizzazione immediata durante il render (sostituisce lo useEffect)
+if (book && book.id !== prevBookId) {
+  setPrevBookId(book.id);
+  setRating(book.rating);
+  setReview(book.review || "");
+}
 
   if (!isOpen || !book) return null;
 
