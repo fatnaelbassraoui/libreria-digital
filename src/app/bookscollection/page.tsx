@@ -1,15 +1,16 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { Spinner } from "@/src/components/ui/Spinner";
-import { NavBar } from "../../components/ui/NavBar";
-import { WishlistBook } from "@/src/types/wishListInterface";
+import { Spinner } from "../components/ui/Spinner";
+import { NavBar } from "../components/ui/NavBar";
+import { WishlistBook } from "@/src/app/types/wishListInterface";
 import { toast } from "react-toastify";
-import { WishlistCard } from "../../components/ui/WishlistCard";
-import { EmptyState } from "../../components/ui/EmptyState";
-import { getCollection, removeFromCollection } from "../../api/booksCollectioApi";
-import { useAuth } from "../../context/AuthContext";
-import { handleError } from "../../utils/handleError";
+import { WishlistCard } from "../components/ui/WishlistCard";
+import { EmptyState } from "../components/ui/EmptyState";
+import { removeFromCollection } from "../api/booksCollectioApi";
+import { useAuth } from "../context/AuthContext";
+import { handleError } from "../utils/handleError";
+import { getWishlistBooks } from "../lib/wishListService";
 
 const BooksCollection = () => {
   const [collection, setCollection] = React.useState<WishlistBook[]>([]);
@@ -25,7 +26,7 @@ const BooksCollection = () => {
     const fetchCollection = async () => {
       setIsLoading(true);
       try {
-        const data = await getCollection(user.id);
+        const data = await getWishlistBooks(user.id);
         setCollection(data);
 
       } catch (error: unknown) {

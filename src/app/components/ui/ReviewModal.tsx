@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import { GutenbergBook } from "../../types/bookInterface";
 import { Spinner } from "./Spinner";
-import { handleError } from "@/src/utils/handleError";
-import { addBookToWishList } from "@/src/api/addBookToWishListApi";
+import { handleError } from "../../utils/handleError";
 import { toast } from "react-toastify";
+import { addBookToWishLists } from "../../lib/wishListService";
 
 interface ReviewModalProps {
   isOpen: boolean;
@@ -23,7 +23,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, book 
     e.preventDefault();
     setIsLoading(true);
     try {
-      await addBookToWishList({ book, rating, review});
+      await addBookToWishLists({ book, rating, review});
       toast.success(`"${book.title}" added to your collection!`);
       onClose();
     } catch (err: unknown) {

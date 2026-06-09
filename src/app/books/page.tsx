@@ -1,14 +1,14 @@
 
 "use client";
-import {  GutenbergBook } from "../../types/bookInterface";
-import { NavBar } from "../../components/ui/NavBar";
+import {  GutenbergBook } from "../types/bookInterface";
+import { NavBar } from "../components/ui/NavBar";
 import { useEffect, useState } from "react";
-import { Spinner } from "../../components/ui/Spinner";
-import { BookCard } from "../../components/ui/BookCard";
-import { SearchBar } from "../../components/ui/SearchBar";
-import { useDebounce } from "../../hooks/useDebounce";
-import { getBooks } from "../../api/booksApi";
-import { handleError } from "../../utils/handleError";
+import { Spinner } from "../components/ui/Spinner";
+import { BookCard } from "../components/ui/BookCard";
+import { SearchBar } from "../components/ui/SearchBar";
+import { useDebounce } from "../hooks/useDebounce";
+import { handleError } from "../utils/handleError";
+import { fetchGutenbergBooks } from "../api/booksApi";
 
 
 const BookLists = () => {
@@ -21,26 +21,27 @@ const BookLists = () => {
   const debouncedSearchvalue = useDebounce(serchValue, 500);
 
   useEffect(() => {
-    const fetchBooks = async () => {
-      setIsLoading(true);
-      try {
-        const url = debouncedSearchvalue
-          ? `https://project-gutenberg-free-books-api1.p.rapidapi.com/books?q=${debouncedSearchvalue}`
-          : `https://project-gutenberg-free-books-api1.p.rapidapi.com/books`;
+   const loadBooks = async () => {
+    setIsLoading(true);
 
-        const response = await getBooks(url);
+    try {
+      const books = await fetchGutenbergBooks(
+        debouncedSearchvalue
+      );
 
-        if (response.status !== 200) {
-          throw new Error(`Error fetching books: ${response.statusText}`);
-        }
-        setBookList(response.data.results);
-      } catch (err:unknown) {
-       handleError(err, "An unexpected error occurred while fetching books.");
-      } finally {
-        setIsLoading(false);
-      }
+      setBookList(books);
+
+    } catch (error) {
+      handleError(
+        error,
+        "An unexpected error occurred while fetching books."
+      );
+    } finally {
+      setIsLoading(false);
     }
-    fetchBooks();
+  };
+
+  loadBooks();
   }, [debouncedSearchvalue]);
 
   return (

@@ -1,5 +1,5 @@
 
-import { AuthTemplate } from "../../../components/auth/AuthTemplate";
+import { AuthTemplate } from "../../components/auth/AuthTemplate";
 
 const SignUpPage = () => {
   return (
