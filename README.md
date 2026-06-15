@@ -125,31 +125,28 @@ npm run dev
 
 ```text
 src/
-  api/
-    addBookToWishListApi.ts # Handles adding/updating books via Supabase RPC
-    booksApi.ts             # Fetches data from the Gutenberg external API
-    booksCollectionApi.ts   # Manages retrieval and updates for the user's collection
-  app/                      # Next.js App Router (Application pages)
-    auth/                   # Authentication routes (signIn and signUp pages)
-    books/                  # Books catalog page featuring search and filters
-    bookscollection/        # User's personal collection page
-    globals.css             # Global Tailwind CSS configurations and styles
-    layout.tsx              # Root application layout and global context wrapping
-    page.tsx                # Main entry point landing page
-  components/
-    auth/                   # Authentication form and custom auth layout components
-    ui/                     # Reusable UI primitives (Cards, Modals, Spinners)
-  context/
-    AuthContext.tsx         # Global React context for managing session state
-  hooks/
-    useDebounce.ts          # Custom hook for search bar query optimization
-  lib/
-    supabase.ts             # Supabase client SDK initialization
-  types/
-    bookInterface.ts        # TypeScript types for Gutenberg API models
-    wishListInterface.ts    # TypeScript types for stored collection books
-  utils/
-    handleError.ts          # Centralized error handler and alert generator
-
+ app/
+   hooks/
+     useDebounce.ts
+   lib/
+     booksService.ts
+     supabase.ts
+     wishListService.ts
+   types/
+     bookInterface.ts
+     wishListInterface.ts
+   utils/
+     handleError.ts
+   components/ui/
+     BookCard.tsx
+     BookCardSkeleton.tsx
+     EditReviewModal.tsx
+     EmptyState.tsx
+     InputField.tsx
+     NavBar.tsx
+     ReviewModal.tsx
+     SearchBar.tsx
+     Spinner.tsx
+     WishlistCard.tsx
 ```
 
