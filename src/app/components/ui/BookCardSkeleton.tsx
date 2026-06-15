@@ -6,9 +6,7 @@ export const BookCardSkeleton = () => {
           key={i}
           className="bg-white border border-gray-200 rounded-xl shadow-sm flex flex-col overflow-hidden h-[440px] animate-pulse"
         >
-          {/* Image placeholder */}
           <div className="relative w-full h-60 bg-gray-200 shrink-0" />
-
           <div className="flex flex-col flex-1 p-4 justify-between min-h-0">
             <div className="space-y-2 min-h-0 overflow-hidden">
               {/* Title placeholder */}

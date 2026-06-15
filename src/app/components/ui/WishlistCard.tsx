@@ -18,7 +18,7 @@ export const WishlistCard: React.FC<WishlistCardProps> = ({ collection, onRemove
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-      {collection.map((book: WishlistBook) => (
+      {collection.map((book: WishlistBook, index: number) => (
         <div
           key={book.id}
           className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden group h-[465px]"
@@ -32,19 +32,19 @@ export const WishlistCard: React.FC<WishlistCardProps> = ({ collection, onRemove
                   src={book.cover_image}
                   alt=""
                   fill
-                  priority={false}
+                  priority={index < 5}
                   className="object-cover blur-md opacity-30 scale-110 pointer-events-none"
                   sizes="(max-width: 768px) 100vw, 20vw"
                 />
                 {/* Immagine principale della copertina */}
                 <Image
-
                   src={book.cover_image}
                   alt={book.title}
                   width={160}  // Imposta una larghezza base indicativa per l'ottimizzazione
                   height={240}
-                  className="relative z-10 max-w-[80%] max-h-[85%] object-contain rounded shadow-[0_6px_12px_rgba(0,0,0,0.2)] border border-white/20"
+                  priority={index < 5}
                   sizes="(max-width: 768px) 80vw, 15vw"
+                  className="relative z-10 max-w-[80%] max-h-[85%] object-contain rounded shadow-[0_6px_12px_rgba(0,0,0,0.2)] border border-white/20"
                 />
               </>
             ) : (

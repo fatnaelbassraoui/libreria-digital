@@ -21,7 +21,7 @@ export const BookCard: React.FC<BookCardProps> = ({ books }) => {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-      {books.map((book: GutenbergBook) => (
+      {books.map((book: GutenbergBook, index: number) => (
         <div
           key={book.id}
           className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden group h-[440px]"
@@ -30,12 +30,14 @@ export const BookCard: React.FC<BookCardProps> = ({ books }) => {
           <div className="relative w-full h-60 bg-gray-900/5 flex items-center justify-center overflow-hidden border-b border-gray-100 shrink-0">
             {book.cover_image ? (
               <>
-                  {/* Blurred background image, scaled up slightly to create a subtle depth effect behind the main cover image. 
+                {/* Blurred background image, scaled up slightly to create a subtle depth effect behind the main cover image. 
                   It is set to be non-interactive and has reduced opacity to ensure it doesn't overpower the main image. */}
                 <Image
                   src={book.cover_image}
                   alt=""
                   fill
+                  sizes="(max-width: 768px) 100vw, 20vw"
+                  priority={index < 5}
                   className="absolute inset-0 w-full h-full object-cover blur-md opacity-30 scale-110 pointer-events-none"
                 />
                 {/* Main cover image, centered and constrained to a maximum size to ensure it fits well within the card. 
@@ -45,8 +47,9 @@ export const BookCard: React.FC<BookCardProps> = ({ books }) => {
                   alt={book.title}
                   width={160}  // Imposta una larghezza base indicativa per l'ottimizzazione
                   height={240}
-                  className="relative z-10 max-w-[80%] max-h-[85%] object-contain rounded shadow-[0_6px_12px_rgba(0,0,0,0.2)] border border-white/20"
+                  priority={index < 5}
                   sizes="(max-width: 768px) 80vw, 15vw"
+                  className="relative z-10 max-w-[80%] max-h-[85%] object-contain rounded shadow-[0_6px_12px_rgba(0,0,0,0.2)] border border-white/20"
                 />
               </>
             ) : (
