@@ -8,7 +8,7 @@ import { BookCard } from "../components/ui/BookCard";
 import { SearchBar } from "../components/ui/SearchBar";
 import { useDebounce } from "../hooks/useDebounce";
 import { handleError } from "../utils/handleError";
-import { fetchGutenbergBooks } from "../api/booksApi";
+import { fetchGutenbergBooks } from "../api/books/booksApi";
 
 
 const BookLists = () => {
