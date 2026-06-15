@@ -22,23 +22,19 @@ const BookLists = () => {
 
   useEffect(() => {
    const loadBooks = async () => {
-    setIsLoading(true);
-
     try {
       const books = await fetchGutenbergBooks(
         debouncedSearchvalue
       );
 
-      setBookList(books);
+      setBookList(books.results);
 
     } catch (error) {
       handleError(
         error,
         "An unexpected error occurred while fetching books."
       );
-    } finally {
-      setIsLoading(false);
-    }
+    } 
   };
 
   loadBooks();

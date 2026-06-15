@@ -1,5 +1,5 @@
 import {NextResponse} from "next/server";
-import {  addBookToWishLists, getWishlistBooks } from "../../lib/wishListService";
+import {  addBookToWishLists, getWishlistBooks, removeFromWishlist } from "../../lib/wishListService";
 
 
 export async function GET(request: Request){
@@ -51,5 +51,26 @@ export async function POST(request: Request) {
             },
             {status: 500}
         )
+    }
+}
+
+
+export async function DELETE(request:Request){
+    try{
+         const id = await request.json();
+         if(!id){return NextResponse.json({
+            error:'Missing required id field'},
+            {status:400}
+         )};
+
+         await removeFromWishlist(id);
+         return NextResponse.json({message:'book removed from wishlist'},{status:200})
+    }catch(error: unknown){
+        const messsage = error instanceof Error? error.message : "Unknown error";
+        return NextResponse.json(
+
+            {error:`Failed to remove book from wishlist: ${messsage}`},
+            {status:500}
+        ) 
     }
 }
