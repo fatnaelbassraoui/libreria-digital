@@ -1,16 +1,14 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { Spinner } from "../components/ui/Spinner";
-import { NavBar } from "../components/ui/NavBar";
 import { WishlistBook } from "@/src/app/types/wishListInterface";
 import { toast } from "react-toastify";
 import { WishlistCard } from "../components/ui/WishlistCard";
 import { EmptyState } from "../components/ui/EmptyState";
-import { removeFromCollection } from "../api/booksCollectioApi";
 import { useAuth } from "../context/AuthContext";
 import { handleError } from "../utils/handleError";
-import { getWishlistBooks } from "../lib/wishListService";
+import { getWishlistBooks, removeFromWishlist } from "../lib/wishListService";
+import { BookCardSkeleton } from "../components/ui/BookCardSkeleton";
 
 const BooksCollection = () => {
   const [collection, setCollection] = React.useState<WishlistBook[]>([]);
@@ -52,7 +50,7 @@ const BooksCollection = () => {
     }
 
     try {
-      await removeFromCollection(id);
+      await removeFromWishlist(id);
 
       setCollection((prev) => prev.filter((book) => book.id !== id));
       toast.success(`"${title}" removed from your collection`);
@@ -72,16 +70,14 @@ const BooksCollection = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <NavBar />
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Wishlist</h2>
 
         </div>
         {isLoading ? (
-          <div className="flex items-center justify-center h-64">
-            <Spinner />
-          </div>
+           <BookCardSkeleton />
         ) : collection.length === 0 ? (
           /* empty statement management */
           <EmptyState />

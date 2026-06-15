@@ -5,6 +5,7 @@ import { AuthProvider } from "../app/context/AuthContext";
 import { Analytics } from "@vercel/analytics/next";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { NavBar } from "./components/ui/NavBar";
 
 // defining the fonts with next/font for optimized loading and performance
 const geistSans = Geist({
@@ -43,6 +44,7 @@ export default function RootLayout({
       >
         <AuthProvider>
           <main className="flex-grow">
+            <NavBar />
             {children}
           </main>
            <ToastContainer
