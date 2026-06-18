@@ -7,9 +7,10 @@ import { GutenbergBook } from "../../types/bookInterface";
 import { ReviewModal } from "./ReviewModal";
 interface BookCardProps {
   books: GutenbergBook[];
+  onBookClick?: (bookId: number) => void; // Optional callback for book click
 }
 
-export const BookCard: React.FC<BookCardProps> = ({ books }) => {
+export const BookCard: React.FC<BookCardProps> = ({ books, onBookClick }) => {
 
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [selectedBook, setSelectedBook] = React.useState<GutenbergBook | null>(null);
@@ -20,11 +21,12 @@ export const BookCard: React.FC<BookCardProps> = ({ books }) => {
   };
 
  return (
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6" onClick={(e) => e.stopPropagation()}>
     {books.map((book: GutenbergBook, index: number) => (
       <div
         key={book.id}
         className="bg-card border border-border rounded-xl hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden group h-[440px]"
+        onClick={() => onBookClick && onBookClick(book.id)}
       >
         {/* Image Container */}
         <div className="relative w-full h-60 bg-muted/30 flex items-center justify-center overflow-hidden border-b border-border shrink-0">

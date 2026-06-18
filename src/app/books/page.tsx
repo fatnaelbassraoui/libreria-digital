@@ -8,10 +8,11 @@ import { useDebounce } from "../hooks/useDebounce";
 import { handleError } from "../utils/handleError";
 import { fetchGutenbergBooks } from "../api/books/booksApi";
 import { BookCardSkeleton } from "../components/ui/BookCardSkeleton";
+import { useRouter } from "next/navigation";
 
 
 const BookLists = () => {
-
+  const router = useRouter();
   const [bookList, setBookList] = useState<GutenbergBook[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [serchValue, setSerchValue] = useState<string>("");
@@ -43,6 +44,10 @@ const BookLists = () => {
   loadBooks();
   }, [debouncedSearchvalue]);
 
+   const handleBookClick = (bookId: number) => {
+    router.push(`/books/${bookId}`); // Cambia il percorso se la tua cartella si chiama in altro modo (es. /books/)
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
@@ -55,7 +60,7 @@ const BookLists = () => {
           </h2>
           <p className="text-sm text-muted-foreground">Explore literary classics</p>
         </div>
-        {isLoading ? <BookCardSkeleton /> : <BookCard books={bookList} />}
+        {isLoading ? <BookCardSkeleton /> : <BookCard books={bookList} onBookClick={handleBookClick}/>}
       </div>
     </div>
   );

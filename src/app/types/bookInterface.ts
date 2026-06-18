@@ -39,3 +39,17 @@ export interface GutenbergApiResponse {
   previous: string | null;
   results: GutenbergBook[];
 }
+
+export interface BookDetailResponse {
+  book_id: number;
+  title: string;
+  alternative_title: string | null;
+  cleaning_mode: string;
+  text: string;
+  metadata: {
+    original_length: number;
+    cleaned_length: number;
+    source_format: string;
+    source_url: string;
+  };
+}
