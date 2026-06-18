@@ -6,6 +6,8 @@ import { Analytics } from "@vercel/analytics/next";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { NavBar } from "./components/ui/NavBar";
+import { ThemeProvider } from "./components/ui/theme-provider";
+
 
 // defining the fonts with next/font for optimized loading and performance
 const geistSans = Geist({
@@ -41,28 +43,34 @@ export default function RootLayout({
       <body
         suppressHydrationWarning={true}
         className="min-h-full flex flex-col bg-gray-50 text-gray-900 font-sans"
+      ><ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
       >
-        <AuthProvider>
-          <main className="flex-grow">
-            <NavBar />
-            {children}
-          </main>
-           <ToastContainer
-            position="top-right"
-        autoClose={4000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        style={{ zIndex: 999999 }}
-          />
-          <Analytics />
-    
-        </AuthProvider>
+          <AuthProvider>
+            <main className="flex-grow">
+              <NavBar />
+              {children}
+            </main>
+            <ToastContainer
+              position="top-right"
+              autoClose={4000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+              style={{ zIndex: 999999 }}
+            />
+            <Analytics />
+
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

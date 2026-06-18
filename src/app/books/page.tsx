@@ -44,26 +44,18 @@ const BookLists = () => {
   }, [debouncedSearchvalue]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
         <div className="flex-1 max-w-md mx-auto w-full">
-          <SearchBar
-            value={serchValue}
-            setQuery={setSerchValue}
-          />
+          <SearchBar value={serchValue} setQuery={setSerchValue} />
         </div>
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Available Books</h2>
-          <p className="text-sm text-gray-500">Explore literary classics</p>
+          <h2 className="text-2xl font-bold text-foreground tracking-tight">
+            Available Books
+          </h2>
+          <p className="text-sm text-muted-foreground">Explore literary classics</p>
         </div>
-
-        {isLoading ? (
-          
-            <BookCardSkeleton />
-          
-        ) : (
-          <BookCard books={bookList} />
-        )}
+        {isLoading ? <BookCardSkeleton /> : <BookCard books={bookList} />}
       </div>
     </div>
   );

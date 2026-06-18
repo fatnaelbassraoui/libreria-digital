@@ -35,36 +35,38 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, book 
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-fadeIn"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs"
       role="dialog"
       aria-modal="true"
     >
-      <div className="relative w-full max-w-md bg-white border border-gray-100 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-100">
+      <div className="relative w-full max-w-md bg-card border border-border rounded-2xl shadow-2xl overflow-hidden">
 
-        {/* Modal Header */}
-        <div className="flex items-center justify-between border-b border-gray-100 p-5 bg-gray-50/50">
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-border p-5 bg-muted/40">
           <div className="space-y-0.5">
-            <h3 className="text-base font-bold text-gray-900">Add to your Collection</h3>
-            <p className="text-xs text-gray-500 truncate max-w-[280px]" title={book?.title}>
+            <h3 className="text-base font-bold text-card-foreground">
+              Add to your Collection
+            </h3>
+            <p className="text-xs text-muted-foreground truncate max-w-[280px]" title={book?.title}>
               {book?.title}
             </p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="text-gray-400 bg-transparent hover:bg-gray-100 hover:text-gray-700 rounded-xl text-sm w-8 h-8 inline-flex justify-center items-center transition-colors"
+            className="text-muted-foreground hover:bg-muted rounded-xl w-8 h-8 inline-flex justify-center items-center transition-colors cursor-pointer"
           >
             <Icon icon="mdi:close" width="20" height="20" />
             <span className="sr-only">Close modal</span>
           </button>
         </div>
 
-        {/* Modal Body */}
+        {/* Body */}
         <form onSubmit={handleSubmit} className="p-6 space-y-5">
 
-          {/*  Rating section (1-5 stars) */}
+          {/* Rating */}
           <div className="space-y-2">
-            <label className="block text-xs font-bold uppercase tracking-wider text-gray-700">
+            <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground">
               Your Rating
             </label>
             <div className="flex items-center gap-1">
@@ -73,25 +75,25 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, book 
                   key={star}
                   type="button"
                   onClick={() => setRating(star)}
-                  className="transition-transform active:scale-90"
+                  className="transition-transform active:scale-90 cursor-pointer"
                 >
                   <Icon
                     icon={star <= rating ? "mdi:star" : "mdi:star-outline"}
-                    className={star <= rating ? "text-amber-400" : "text-gray-300"}
+                    className={star <= rating ? "text-amber-400" : "text-muted-foreground/40"}
                     width="28"
                     height="28"
                   />
                 </button>
               ))}
-              <span className="text-xs font-bold text-gray-500 ml-2 bg-gray-100 px-2 py-0.5 rounded">
+              <span className="text-xs font-bold text-muted-foreground ml-2 bg-muted px-2 py-0.5 rounded">
                 {rating} / 5
               </span>
             </div>
           </div>
 
-          {/* Review section */}
+          {/* Review */}
           <div className="space-y-2">
-            <label htmlFor="review" className="block text-xs font-bold uppercase tracking-wider text-gray-700">
+            <label htmlFor="review" className="block text-xs font-bold uppercase tracking-wider text-muted-foreground">
               Review / Thoughts (Optional)
             </label>
             <textarea
@@ -100,17 +102,17 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, book 
               value={review}
               maxLength={200}
               onChange={(e) => setReview(e.target.value)}
-              className="block w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-green-100 focus:border-green-700 p-3.5 shadow-xs placeholder:text-gray-400 outline-hidden transition-all resize-none"
+              className="block w-full bg-background border border-border text-foreground text-sm rounded-xl focus:ring-2 focus:ring-green-700/20 focus:border-green-700 p-3.5 placeholder:text-muted-foreground/50 outline-hidden transition-all resize-none"
               placeholder="What did you think about this literary masterpiece?"
             />
           </div>
 
-          {/* Modal Footer / Azioni */}
-          <div className="flex items-center justify-end gap-3 pt-3 border-t border-gray-100">
+          {/* Footer */}
+          <div className="flex items-center justify-end gap-3 pt-3 border-t border-border">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-xs font-bold text-gray-500 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-xl transition-all"
+              className="px-4 py-2 text-xs font-bold text-muted-foreground bg-muted hover:bg-muted/70 rounded-xl transition-colors cursor-pointer"
             >
               Cancel
             </button>
@@ -118,12 +120,14 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, book 
               <div className="px-6 py-2 flex items-center justify-center">
                 <Spinner />
               </div>
-            ) : (<button
-              type="submit"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-green-700 hover:bg-green-800 px-4 py-2.5 rounded-xl transition-all shadow-md active:scale-95"
-            >
-              Save
-            </button>)}
+            ) : (
+              <button
+                type="submit"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-green-700 hover:bg-green-800 px-4 py-2.5 rounded-xl transition-colors shadow-md active:scale-95"
+              >
+                Save
+              </button>
+            )}
           </div>
         </form>
       </div>
