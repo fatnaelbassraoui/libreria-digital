@@ -9,7 +9,7 @@ interface AuthLayoutProps {
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen w-full bg-gray-50 flex items-center justify-center">
-      <ToastContainer 
+      <ToastContainer
         position="top-right"
         autoClose={4000}
         hideProgressBar={false}

@@ -33,7 +33,6 @@ export interface GutenbergBook {
   removed_from_catalog: boolean | null;
 }
 
-
 export interface GutenbergApiResponse {
   next: string | null;
   previous: string | null;

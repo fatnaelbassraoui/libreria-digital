@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react"; 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "react-toastify";
@@ -22,7 +22,6 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
   const isLogin = type === "signIn";
   const router = useRouter();
 
-
   const onSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!email || !password) {
@@ -41,8 +40,8 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
 
         if (error) throw error;
         toast.success("login successful!");
-       
-          router.push("/books");
+
+        router.push("/books");
       } else {
         const { error } = await supabase.auth.signUp({
           email,
@@ -52,14 +51,17 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
         toast.success("Registration completed!");
         router.push("/auth/signin");
       }
-
     } catch (error: unknown) {
-      handleError(error, isLogin ? "Login failed. Please check your credentials." : "Registration failed. Please try again.");
+      handleError(
+        error,
+        isLogin
+          ? "Login failed. Please check your credentials."
+          : "Registration failed. Please try again.",
+      );
     } finally {
       setIsLoading(false);
     }
   };
-
 
   return (
     <form
@@ -72,7 +74,9 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
           {isLogin ? "Welcome Back" : "Create Account"}
         </h1>
         <p className="text-sm text-gray-500">
-          {isLogin ? "Sign in to access your digital library" : "Get started with your free account today"}
+          {isLogin
+            ? "Sign in to access your digital library"
+            : "Get started with your free account today"}
         </p>
       </div>
 
@@ -115,7 +119,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
       <div className="text-center pt-2 border-t border-gray-100 text-sm">
         {isLogin ? (
           <p className="text-gray-600">
-           Don&apos;t have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link
               href="/auth/signup"
               className="font-bold text-green-700 hover:text-green-800 hover:underline ml-1"

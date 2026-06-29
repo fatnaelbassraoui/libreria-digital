@@ -12,7 +12,11 @@ interface ReviewModalProps {
   book: GutenbergBook;
 }
 
-export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, book }) => {
+export const ReviewModal: React.FC<ReviewModalProps> = ({
+  isOpen,
+  onClose,
+  book,
+}) => {
   const [rating, setRating] = useState<number>(5);
   const [review, setReview] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -23,11 +27,14 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, book 
     e.preventDefault();
     setIsLoading(true);
     try {
-      await addBookToWishLists({ book, rating, review});
+      await addBookToWishLists({ book, rating, review });
       toast.success(`"${book.title}" added to your collection!`);
       onClose();
     } catch (err: unknown) {
-      handleError(err, 'An error occurred while adding the book to your collection. Please try again later.');
+      handleError(
+        err,
+        "An error occurred while adding the book to your collection. Please try again later.",
+      );
     } finally {
       setIsLoading(false);
     }
@@ -40,14 +47,16 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, book 
       aria-modal="true"
     >
       <div className="relative w-full max-w-md bg-card border border-border rounded-2xl shadow-2xl overflow-hidden">
-
         {/* Header */}
         <div className="flex items-center justify-between border-b border-border p-5 bg-muted/40">
           <div className="space-y-0.5">
             <h3 className="text-base font-bold text-card-foreground">
               Add to your Collection
             </h3>
-            <p className="text-xs text-muted-foreground truncate max-w-[280px]" title={book?.title}>
+            <p
+              className="text-xs text-muted-foreground truncate max-w-[280px]"
+              title={book?.title}
+            >
               {book?.title}
             </p>
           </div>
@@ -63,7 +72,6 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, book 
 
         {/* Body */}
         <form onSubmit={handleSubmit} className="p-6 space-y-5">
-
           {/* Rating */}
           <div className="space-y-2">
             <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground">
@@ -79,7 +87,11 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, book 
                 >
                   <Icon
                     icon={star <= rating ? "mdi:star" : "mdi:star-outline"}
-                    className={star <= rating ? "text-amber-400" : "text-muted-foreground/40"}
+                    className={
+                      star <= rating
+                        ? "text-amber-400"
+                        : "text-muted-foreground/40"
+                    }
                     width="28"
                     height="28"
                   />
@@ -93,7 +105,10 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, book 
 
           {/* Review */}
           <div className="space-y-2">
-            <label htmlFor="review" className="block text-xs font-bold uppercase tracking-wider text-muted-foreground">
+            <label
+              htmlFor="review"
+              className="block text-xs font-bold uppercase tracking-wider text-muted-foreground"
+            >
               Review / Thoughts (Optional)
             </label>
             <textarea

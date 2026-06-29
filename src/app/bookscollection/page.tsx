@@ -26,11 +26,9 @@ const BooksCollection = () => {
       try {
         const data = await getWishlistBooks(user.id);
         setCollection(data);
-
       } catch (error: unknown) {
-       
         if (!isMounted) return;
-  handleError(error, "Errore nel caricamento della collezione");
+        handleError(error, "Errore nel caricamento della collezione");
       } finally {
         setIsLoading(false);
       }
@@ -45,7 +43,11 @@ const BooksCollection = () => {
 
   const handleRemove = async (id: number, title: string) => {
     // confirmation dialog before deletion using browser's built-in confirm function
-    if (!confirm(`Are you sure you want to remove "${title}" from your collection?`)) {
+    if (
+      !confirm(
+        `Are you sure you want to remove "${title}" from your collection?`,
+      )
+    ) {
       return;
     }
 
@@ -54,17 +56,22 @@ const BooksCollection = () => {
 
       setCollection((prev) => prev.filter((book) => book.id !== id));
       toast.success(`"${title}" removed from your collection`);
-      
     } catch (err: unknown) {
       handleError(err, "Failed to remove the book. Try again.");
     }
   };
 
-  const handleUpdateLocalState = (id: number, newRating: number, newReview: string) => {
+  const handleUpdateLocalState = (
+    id: number,
+    newRating: number,
+    newReview: string,
+  ) => {
     setCollection((prev) =>
       prev.map((book) =>
-        book.id === id ? { ...book, rating: newRating, review: newReview } : book
-      )
+        book.id === id
+          ? { ...book, rating: newRating, review: newReview }
+          : book,
+      ),
     );
   };
 
@@ -93,4 +100,3 @@ const BooksCollection = () => {
 };
 
 export default BooksCollection;
-

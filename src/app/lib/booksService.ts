@@ -8,7 +8,7 @@ export const getBooksFromRapidApi = async (query?: string) => {
       "Content-Type": "application/json",
       "X-RapidAPI-Key": process.env.RAPID_API_KEY!,
       "X-RapidAPI-Host": process.env.RAPID_API_HOST!,
-    }
+    },
   });
 
   if (!response.ok) {
@@ -18,5 +18,3 @@ export const getBooksFromRapidApi = async (query?: string) => {
 
   return response.json();
 };
-
-

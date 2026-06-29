@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import {  getBooksFromRapidApi } from "../../lib/booksService";
+import { getBooksFromRapidApi } from "../../lib/booksService";
 import { getBookByIdFromRapidApi } from "../../lib/bookByIdService";
 
 export async function GET(request: Request) {
@@ -17,12 +17,10 @@ export async function GET(request: Request) {
     }
 
     return NextResponse.json(data);
-
   } catch (error) {
     return NextResponse.json(
       { error: `Failed to fetch books: ${error}` }, // 👈 Sistemate le virgolette qui
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
-

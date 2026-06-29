@@ -34,8 +34,8 @@ const InputField: React.FC<InputFieldProps> = ({
         onChange={(e) => setValue(e.target.value)}
         required={required}
         placeholder={placeholder}
-        className="w-full bg-white border border-sky-800 text-sky-900 text-sm rounded-lg 
-                   focus:ring-2 focus:ring-sky-500 focus:border-sky-900 focus:outline-none 
+        className="w-full bg-white border border-sky-800 text-sky-900 text-sm rounded-lg
+                   focus:ring-2 focus:ring-sky-500 focus:border-sky-900 focus:outline-none
                    block p-3.5 transition-all placeholder-gray-400"
       />
     </div>

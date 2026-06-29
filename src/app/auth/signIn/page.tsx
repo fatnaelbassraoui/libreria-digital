@@ -1,11 +1,11 @@
 import { AuthTemplate } from "../../components/auth/AuthTemplate";
 
 const SignInPage = () => {
-return (
+  return (
     <AuthTemplate
-      title="A room without books is like a body without a soul." 
+      title="A room without books is like a body without a soul."
       type="signIn"
-      />
+    />
   );
 };
 
