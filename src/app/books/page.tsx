@@ -21,7 +21,6 @@ const BookLists = () => {
   const debouncedSearchvalue = useDebounce(serchValue, 500);
 
   useEffect(() => {
-   
    const loadBooks = async () => {
      setIsLoading(true);
     try {
@@ -47,25 +46,33 @@ const BookLists = () => {
    const handleBookClick = (bookId: number) => {
     router.push(`/books/${bookId}`); // Cambia il percorso se la tua cartella si chiama in altro modo (es. /books/)
   };
+return (
+  <div className="min-h-screen bg-background">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
 
-  return (
-    <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
-        <div className="flex-1 max-w-md mx-auto w-full">
+     
+      <div className="flex justify-center mb-10">
+        <div className="w-full max-w-md">
           <SearchBar value={serchValue} setQuery={setSerchValue} />
         </div>
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-foreground tracking-tight">
-            Available Books
-          </h2>
-          <p className="text-sm text-muted-foreground">Explore literary classics</p>
-        </div>
-        {isLoading ? <BookCardSkeleton /> : <BookCard books={bookList} onBookClick={handleBookClick}/>}
       </div>
+
+    
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-foreground tracking-tight">
+          Available Books
+        </h2>
+        <p className="text-sm text-muted-foreground">Explore literary classics</p>
+      </div>
+
+      {isLoading ? (
+        <BookCardSkeleton />
+      ) : (
+        <BookCard books={bookList} onBookClick={handleBookClick} />
+      )}
     </div>
-  );
-
-
+  </div>
+);
 };
 
 export default BookLists;

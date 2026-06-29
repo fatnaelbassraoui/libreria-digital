@@ -50,7 +50,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
         });
         if (error) throw error;
         toast.success("Registration completed!");
-        router.push("/auth/signIn");
+        router.push("/auth/signin");
       }
 
     } catch (error: unknown) {
@@ -117,7 +117,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
           <p className="text-gray-600">
            Don&apos;t have an account?{" "}
             <Link
-              href="/auth/signUp"
+              href="/auth/signup"
               className="font-bold text-green-700 hover:text-green-800 hover:underline ml-1"
             >
               Sign Up
@@ -127,7 +127,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
           <p className="text-gray-600">
             Already have an account?{" "}
             <Link
-              href="/auth/signIn"
+              href="/auth/signin"
               className="font-bold text-green-700 hover:text-green-800 hover:underline ml-1"
             >
               Sign In

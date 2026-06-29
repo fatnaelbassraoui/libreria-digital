@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { NavBar } from "./components/ui/NavBar";
 import { ThemeProvider } from "./components/ui/theme-provider";
-
+import { headers } from "next/headers";
 
 // defining the fonts with next/font for optimized loading and performance
 const geistSans = Geist({
@@ -28,11 +28,17 @@ export const metadata: Metadata = {
   description: "Gestisci la tua collezione personale di libri, aggiungi recensioni e voti.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+     const headerList = await headers();
+     const pathname = headerList.get("x-current-path") || "";
+
+  // 3. Verifica se l'utente si trova in una pagina di autenticazione
+    const isAuthPage = pathname === "/auth/signin" || pathname === "/auth/signup";
+
   return (
     <html
       lang="it"
@@ -51,7 +57,7 @@ export default function RootLayout({
       >
           <AuthProvider>
             <main className="flex-grow">
-              <NavBar />
+           { !isAuthPage &&  <NavBar />}
               {children}
             </main>
             <ToastContainer

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { getBookByIdFromRapidApi, getBooksFromRapidApi } from "../../lib/booksService";
+import {  getBooksFromRapidApi } from "../../lib/booksService";
+import { getBookByIdFromRapidApi } from "../../lib/bookByIdService";
 
 export async function GET(request: Request) {
   try {

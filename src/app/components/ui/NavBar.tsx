@@ -17,7 +17,7 @@ export const NavBar = () => {
     e.stopPropagation(); // Prevent the click event from bubbling up to the dropdown
     try {
       await signOut();
-      router.push("/auth/signIn");
+      router.push("/auth/signin");
     } catch (error: unknown) {
       handleError(error, "Logout failed");
     }
