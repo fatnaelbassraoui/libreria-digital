@@ -1,5 +1,5 @@
 export const getBookByIdFromRapidApi = async (id: string) => {
-  const url = `https://project-gutenberg-free-books-api1.p.rapidapi.com/books/${id}/text?cleaning_mode=super`;
+  const url = `https://project-gutenberg-free-books-api1.p.rapidapi.com/books/${id}/text?cleaning_mode=simple`;
 
   const response = await fetch(url, {
     headers: {
