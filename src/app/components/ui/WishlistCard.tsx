@@ -29,22 +29,28 @@ export const WishlistCard: React.FC<WishlistCardProps> = ({
           <div className="relative w-full h-52 bg-muted/30 flex items-center justify-center overflow-hidden border-b border-border shrink-0">
             {book.cover_image ? (
               <>
+                {/* Background decorativo */}
                 <Image
                   src={book.cover_image}
                   alt=""
                   fill
-                  priority={index < 5}
-                  className="object-cover blur-md opacity-30 scale-110 pointer-events-none"
+                  aria-hidden="true"
                   sizes="(max-width: 768px) 100vw, 20vw"
+                  loading="lazy"
+                  unoptimized
+                  className="absolute inset-0 object-cover blur-xl opacity-20 scale-110 pointer-events-none select-none"
                 />
+
+                {/* Copertina */}
                 <Image
                   src={book.cover_image}
-                  alt={book.title}
+                  alt={`Cover of ${book.title}`}
                   width={160}
                   height={240}
-                  priority={index < 5}
-                  sizes="(max-width: 768px) 80vw, 15vw"
-                  className="relative z-10 max-w-[80%] max-h-[85%] object-contain rounded shadow-[0_6px_12px_rgba(0,0,0,0.2)] border border-white/20"
+                  priority={index < 3}
+                  sizes="160px"
+                  unoptimized
+                  className="relative z-10 h-auto w-auto max-w-[72%] max-h-[83%] rounded-md object-contain shadow-xl transition-transform duration-300 group-hover:scale-105"
                 />
               </>
             ) : (

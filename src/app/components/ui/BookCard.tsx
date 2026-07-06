@@ -30,22 +30,28 @@ export const BookCard: React.FC<BookCardProps> = ({ books, onBookClick }) => {
           <div className="relative h-56 bg-muted/30 flex items-center justify-center overflow-hidden shrink-0">
             {book.cover_image ? (
               <>
+                {/* Background decorativo */}
                 <Image
                   src={book.cover_image}
                   alt=""
                   fill
+                  aria-hidden="true"
                   sizes="(max-width: 768px) 100vw, 20vw"
-                  priority={index < 5}
-                  className="absolute inset-0 w-full h-full object-cover blur-md opacity-25 scale-110 pointer-events-none"
+                  loading="lazy"
+                  unoptimized
+                  className="absolute inset-0 object-cover blur-xl opacity-20 scale-110 pointer-events-none select-none"
                 />
+
+                {/* Copertina */}
                 <Image
                   src={book.cover_image}
-                  alt={book.title}
+                  alt={`Cover of ${book.title}`}
                   width={160}
                   height={240}
-                  priority={index < 5}
-                  sizes="(max-width: 768px) 80vw, 15vw"
-                  className="relative z-10 max-w-[72%] max-h-[83%] object-contain rounded-md shadow-[0_8px_20px_rgba(0,0,0,0.22)]"
+                  priority={index < 3}
+                  sizes="160px"
+                  unoptimized
+                  className="relative z-10 h-auto w-auto max-w-[72%] max-h-[83%] rounded-md object-contain shadow-xl transition-transform duration-300 group-hover:scale-105"
                 />
               </>
             ) : (
