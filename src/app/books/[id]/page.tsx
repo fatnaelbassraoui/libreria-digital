@@ -48,6 +48,7 @@ export default function BookDetailPage({ params }: PageProps) {
       <AlertComponent
         title="Error"
         description="Impossible to fetch book details"
+        variant="error"
       />
     );
 
