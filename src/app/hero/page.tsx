@@ -64,23 +64,20 @@ const HeroPage = () => {
           </div>
           <div className="flex items-center gap-4 mt-6 pt-6 border-t border-white/10">
             <div className="flex -space-x-3">
-              {[1, 2, 3, 4].map((n) => {
-                console.log(`/images/avatar${n}.jpg`);
-                return (
-                  <Avatar
-                    key={n}
-                    className="border-2 border-zinc-950 w-10 h-10 shadow-md"
-                  >
-                    <AvatarImage
-                      src={`/images/avatar${n}.jpg`}
-                      alt={`User avatar ${n}`}
-                    />
-                    <AvatarFallback className="bg-violet-600 text-white text-xs font-bold">
-                      U{n}
-                    </AvatarFallback>
-                  </Avatar>
-                );
-              })}
+              {[1, 2, 3, 4].map((n) => (
+                <Avatar
+                  key={n}
+                  className="border-2 border-zinc-950 w-10 h-10 shadow-md"
+                >
+                  <AvatarImage
+                    src={`/images/avatar${n}.jpg`}
+                    alt={`User avatar ${n}`}
+                  />
+                  <AvatarFallback className="bg-violet-600 text-white text-xs font-bold">
+                    U{n}
+                  </AvatarFallback>
+                </Avatar>
+              ))}
             </div>
 
             <div className="flex flex-col">
