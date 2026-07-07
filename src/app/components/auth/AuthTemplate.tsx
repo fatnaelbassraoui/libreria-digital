@@ -11,7 +11,7 @@ export const AuthTemplate: React.FC<AuthTemplateProps> = ({ title, type }) => {
     <div className="flex min-h-screen w-screen bg-neutral-950">
       <div className="hidden md:block md:w-1/2 lg:w-7/12 xl:w-8/12 relative">
         <Image
-          src="/images/loginImage.jpg"
+          src="/images/login_image.jpg"
           alt="Library Authentication"
           fill
           priority

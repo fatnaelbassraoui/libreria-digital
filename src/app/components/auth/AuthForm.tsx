@@ -5,19 +5,9 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { supabase } from "../../lib/supabase";
-import InputField from "../ui/InputField";
 import "react-toastify/dist/ReactToastify.css";
 import { handleError } from "../../utils/handleError";
-import { Spinner } from "../ui/Spinner";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Loader2 } from "lucide-react"; // Icona spinner standard di shadcn (richiede lucide-react)
