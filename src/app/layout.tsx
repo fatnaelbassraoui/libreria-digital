@@ -37,7 +37,7 @@ export default async function RootLayout({
     <html
       lang="it"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
     >
       <body
         suppressHydrationWarning={true}
