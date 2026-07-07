@@ -41,12 +41,12 @@ export default async function RootLayout({
     >
       <body
         suppressHydrationWarning={true}
-        className="min-h-full flex flex-col bg-gray-50 text-gray-900 font-sans"
+        className="min-h-full flex flex-col bg-background text-foreground font-sans transition-colors duration-200"
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="dark"
+          enableSystem={false}
           disableTransitionOnChange
         >
           <AuthProvider>

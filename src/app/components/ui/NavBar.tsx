@@ -16,7 +16,8 @@ export const NavBar = () => {
     e.stopPropagation();
     try {
       await signOut();
-      router.push("/hero");
+      router.push("/auth/signin");
+      setIsDropdownOpen(false);
     } catch (error: unknown) {
       handleError(error, "Logout failed");
     }
@@ -35,9 +36,9 @@ export const NavBar = () => {
       <div className="max-w-7xl h-full mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
         {/*  LOGO */}
         <div className="flex items-center shrink-0">
-          <div className="flex items-center gap-2 text-gray-900 hover:opacity-80">
+          <div className="flex items-center gap-2 text-white  hover:opacity-80">
             <svg
-              className="w-6 h-6 text-green-700"
+              className="w-6 h-6 text-violet-600"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -56,19 +57,17 @@ export const NavBar = () => {
             </span>
           </div>
         </div>
-        {/*  Collection + AVATAR */}
         <div className="flex items-center gap-4 shrink-0 relative">
           <Link
             href={
               pathname === "/bookscollection" ? "/books" : "/bookscollection"
             }
-            className="text-sm font-semibold text-muted-foreground
-            hover:text-green-700 transition-colors"
+            className="text-sm font-semibold text-foreground
+            hover:text-violet-600 transition-colors"
           >
             {pathname === "/bookscollection" ? "Books" : "My collection"}
           </Link>
           <ModeToggle />
-          {/*  Menu Avatar button */}
           <button
             type="button"
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -82,14 +81,14 @@ export const NavBar = () => {
               />
             </div>
           </button>
-          {/*LogOut Dropdown  */}
+
           {isDropdownOpen && (
             <div className="absolute right-0 top-12 z-50 w-56 bg-popover border border-border rounded-xl shadow-xl overflow-hidden divide-y divide-gray-100 animate-in fade-in slide-in-from-top-1 duration-100">
               <div className="py-3 px-4 bg-muted/50">
-                <p className="text-xs text-muted-foreground font-medium">
+                <p className="text-xs text-foreground font-medium">
                   Connected Account
                 </p>
-                <p className="text-xs text-muted-foreground truncate">
+                <p className="text-xs text-foreground truncate">
                   {user?.email || "email@esempio.com"}
                 </p>
               </div>

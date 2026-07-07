@@ -64,7 +64,6 @@ export const WishlistCard: React.FC<WishlistCardProps> = ({
               </div>
             )}
 
-            {/* Rating Badge */}
             <div className="absolute top-3 right-3 z-20 bg-background/90 backdrop-blur-xs px-2 py-1 rounded-lg flex items-center gap-1 border border-border">
               <Icon icon="mdi:star" className="text-amber-400" width="14" />
               <span className="text-xs font-bold text-foreground">
@@ -73,11 +72,10 @@ export const WishlistCard: React.FC<WishlistCardProps> = ({
             </div>
           </div>
 
-          {/* Content */}
           <div className="flex flex-col flex-1 p-4 justify-between min-h-0 bg-card">
             <div className="space-y-2 min-h-0 overflow-hidden">
               <h3
-                className="text-sm font-bold text-foreground line-clamp-2 leading-snug group-hover:text-green-700 dark:group-hover:text-green-400 transition-colors"
+                className="text-sm font-bold text-foreground line-clamp-2 leading-snug group-hover:text-violet-700 dark:group-hover:text-violet-400 transition-colors"
                 title={book.title}
               >
                 {book.title}
@@ -123,7 +121,7 @@ export const WishlistCard: React.FC<WishlistCardProps> = ({
                   e.stopPropagation();
                   setSelectedBook(book);
                 }}
-                className="flex items-center gap-1 text-xs font-semibold text-green-600 hover:text-white hover:bg-green-600 border border-green-200 dark:border-green-800 hover:border-green-600 px-2.5 py-1.5 rounded-lg transition-all active:scale-95 cursor-pointer"
+                className="flex items-center gap-1 text-xs font-semibold text-white bg-violet-600 border border-violet-200 dark:border-violet-800 hover:border-violet-600 px-2.5 py-1.5 rounded-lg transition-all active:scale-95 cursor-pointer"
               >
                 <Icon icon="mdi:square-edit-outline" width="14" />
                 Edit

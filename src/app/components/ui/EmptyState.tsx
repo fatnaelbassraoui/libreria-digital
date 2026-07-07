@@ -7,7 +7,7 @@ export const EmptyState = () => {
       <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center mx-auto mb-3">
         <Icon
           icon="mdi:book-open-variant"
-          className="text-green-700 dark:text-green-500"
+          className="text-violet-600"
           width="24"
         />
       </div>
@@ -19,7 +19,7 @@ export const EmptyState = () => {
       </p>
       <Link
         href="/books"
-        className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-green-700 hover:bg-green-800 px-4 py-2.5 rounded-xl transition-all"
+        className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-violet-600 hover:bg-violet-500 px-4 py-2.5 rounded-xl transition-all"
       >
         <Icon icon="mdi:magnify" width="14" />
         Search Books

@@ -138,7 +138,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
             ) : (
               <button
                 type="submit"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-green-700 hover:bg-green-800 px-4 py-2.5 rounded-xl transition-colors shadow-md active:scale-95"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-violet-600 hover:bg-violet-500 px-4 py-2.5 rounded-xl transition-colors shadow-md active:scale-95"
               >
                 Save
               </button>

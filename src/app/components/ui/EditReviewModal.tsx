@@ -153,7 +153,7 @@ export const EditReviewModal: React.FC<EditReviewModalProps> = ({
             ) : (
               <button
                 type="submit"
-                className="text-xs font-bold text-white bg-green-700 hover:bg-green-800 px-4 py-2.5 rounded-xl shadow-md active:scale-95 cursor-pointer transition-colors"
+                className="text-xs font-bold text-white bg-violet-600 hover:bg-violet-500 px-4 py-2.5 rounded-xl shadow-md active:scale-95 cursor-pointer transition-colors"
               >
                 Save Changes
               </button>

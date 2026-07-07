@@ -9,6 +9,18 @@ import InputField from "../ui/InputField";
 import "react-toastify/dist/ReactToastify.css";
 import { handleError } from "../../utils/handleError";
 import { Spinner } from "../ui/Spinner";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Loader2 } from "lucide-react"; // Icona spinner standard di shadcn (richiede lucide-react)
 
 interface AuthFormProps {
   type: "signIn" | "signUp";
@@ -64,82 +76,107 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
   };
 
   return (
-    <form
-      className="w-full max-w-md mx-auto p-8 sm:p-10 bg-white rounded-2xl shadow-xl border border-gray-100 space-y-6 transition-all"
-      onSubmit={onSubmit}
-    >
-      {/* Brand & Form Header */}
-      <div className="text-center space-y-2">
-        <h1 className="text-3xl font-extrabold text-gray-950 tracking-tight">
+    <div className="w-full max-w-sm space-y-8 text-neutral-200">
+      <div className="space-y-2 text-center md:text-left">
+        <h1 className="text-3xl font-extrabold tracking-tight text-white">
           {isLogin ? "Welcome Back" : "Create Account"}
         </h1>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-neutral-400">
           {isLogin
             ? "Sign in to access your digital library"
             : "Get started with your free account today"}
         </p>
       </div>
 
-      {/* Input Fields */}
-      <div className="space-y-4">
-        <InputField
-          id="email"
-          type="email"
-          value={email}
-          label="Email Address"
-          setValue={setEmail}
-        />
-        <InputField
-          id="password"
-          type="password"
-          value={password}
-          label="Password"
-          setValue={setPassword}
-        />
-      </div>
-
-      {/* Submit Button */}
-      <button
-        className="w-full bg-violet-600 rounded-xl p-3.5 text-white font-semibold text-sm transition-all hover:bg-violet-500 focus:ring-4 focus:ring-violet-100 disabled:opacity-50 disabled:pointer-events-none shadow-sm flex items-center justify-center gap-2"
-        type="submit"
-        disabled={isLoading}
-      >
-        {isLoading ? (
-          <>
-            <Spinner />
-          </>
-        ) : isLogin ? (
-          "Sign In"
-        ) : (
-          "Sign Up"
-        )}
-      </button>
-
-      {/* Form Footer */}
-      <div className="text-center pt-2 border-t border-gray-100 text-sm">
-        {isLogin ? (
-          <p className="text-gray-600">
-            Don&apos;t have an account?{" "}
-            <Link
-              href="/auth/signup"
-              className="font-bold text-violet-700 hover:text-violet-800 hover:underline ml-1"
+      <form onSubmit={onSubmit} className="space-y-6">
+        <div className="grid gap-2">
+          <Label
+            htmlFor="email"
+            className="text-neutral-300 font-medium tracking-wide text-xs uppercase"
+          >
+            Email Address
+          </Label>
+          <Input
+            id="email"
+            type="email"
+            placeholder="m@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            disabled={isLoading}
+            className="h-11 bg-neutral-900 border-neutral-800 text-white placeholder:text-neutral-600 focus-visible:ring-violet-500 focus-visible:ring-offset-0"
+          />
+        </div>
+        <div className="grid gap-2">
+          <div className="flex items-center justify-between">
+            <Label
+              htmlFor="password"
+              className="text-neutral-300 font-medium tracking-wide text-xs uppercase"
             >
-              Sign Up
-            </Link>
-          </p>
-        ) : (
-          <p className="text-gray-600">
-            Already have an account?{" "}
-            <Link
-              href="/auth/signin"
-              className="font-bold text-violet-700 hover:text-violet-800 hover:underline ml-1"
-            >
-              Sign In
-            </Link>
-          </p>
-        )}
-      </div>
-    </form>
+              Password
+            </Label>
+            {isLogin && (
+              <Link
+                href="/auth/forgot"
+                className="text-xs text-neutral-400 hover:text-white underline-offset-4 hover:underline"
+              >
+                Forgot password?
+              </Link>
+            )}
+          </div>
+          <Input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            disabled={isLoading}
+            className="h-11 bg-neutral-900 border-neutral-800 text-white focus-visible:ring-violet-500 focus-visible:ring-offset-0"
+          />
+        </div>
+
+        <Button
+          type="submit"
+          className="w-full h-11 font-semibold bg-violet-600 hover:bg-violet-500 text-white transition-all shadow-lg shadow-violet-600/20"
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Please wait
+            </>
+          ) : isLogin ? (
+            "Sign In"
+          ) : (
+            "Sign Up"
+          )}
+        </Button>
+
+        <div className="w-full text-center pt-4 border-t border-neutral-900 text-sm text-neutral-400">
+          {isLogin ? (
+            <p>
+              Don&apos;t have an account?{" "}
+              <Link
+                href="/auth/signup"
+                className="font-bold text-violet-400 hover:text-violet-300 hover:underline ml-1"
+              >
+                Sign Up
+              </Link>
+            </p>
+          ) : (
+            <p>
+              Already have an account?{" "}
+              <Link
+                href="/auth/signin"
+                className="font-bold text-violet-400 hover:text-violet-300 hover:underline ml-1"
+              >
+                Sign In
+              </Link>
+            </p>
+          )}
+        </div>
+      </form>
+    </div>
   );
 };
 
