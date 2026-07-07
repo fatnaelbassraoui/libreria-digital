@@ -6,7 +6,6 @@ import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
 import { handleError } from "../../utils/handleError";
 import { ModeToggle } from "./mode-toggle";
-
 export const NavBar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const pathname = usePathname();
@@ -14,14 +13,20 @@ export const NavBar = () => {
   const router = useRouter();
 
   const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation(); // Prevent the click event from bubbling up to the dropdown
+    e.stopPropagation();
     try {
       await signOut();
-      router.push("/auth/signin");
+      router.push("/hero");
     } catch (error: unknown) {
       handleError(error, "Logout failed");
     }
   };
+  const hideNav =
+    pathname === "/hero" ||
+    pathname === "/auth/signin" ||
+    pathname === "/auth/signup";
+
+  if (hideNav) return null;
   return (
     <header
       className="fixed top-0 left-0 right-0 z-50 w-full

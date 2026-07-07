@@ -23,9 +23,9 @@ const geistMono = Geist_Mono({
 });
 
 // Metadata for the application, important for SEO and social sharing
-export const metadata: Metadata = {
-  title: "La Mia Libreria Digitale",
-  description: "Gestisci la tua collezione personale di libri, aggiungi recensioni e voti.",
+export const metadata = {
+  title: "Digital Library",
+  description: "Modern digital library built with Next.js",
 };
 
 export default async function RootLayout({
@@ -33,31 +33,25 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-     const headerList = await headers();
-     const pathname = headerList.get("x-current-path") || "";
-
-  // 3. Verifica se l'utente si trova in una pagina di autenticazione
-    const isAuthPage = pathname === "/auth/signin" || pathname === "/auth/signup";
-
   return (
     <html
       lang="it"
       suppressHydrationWarning
-
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body
         suppressHydrationWarning={true}
         className="min-h-full flex flex-col bg-gray-50 text-gray-900 font-sans"
-      ><ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
       >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <AuthProvider>
             <main className="flex-grow">
-           { !isAuthPage &&  <NavBar />}
+              <NavBar />
               {children}
             </main>
             <ToastContainer
@@ -74,7 +68,6 @@ export default async function RootLayout({
               style={{ zIndex: 999999 }}
             />
             <Analytics />
-
           </AuthProvider>
         </ThemeProvider>
       </body>

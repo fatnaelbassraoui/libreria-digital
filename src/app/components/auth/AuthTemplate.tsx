@@ -11,7 +11,7 @@ export const AuthTemplate: React.FC<AuthTemplateProps> = ({ title, type }) => {
     <div className="flex min-h-screen w-screen">
       <div className="hidden md:block md:w-1/2 lg:w-7/12 xl:w-8/12 relative bg-gray-900">
         <Image
-          src="/images/LoginImage.jpg"
+          src="/images/loginImage.jpg"
           alt="Library Authentication"
           fill
           priority
@@ -20,7 +20,9 @@ export const AuthTemplate: React.FC<AuthTemplateProps> = ({ title, type }) => {
         />
         {/* Overlay with Quote */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-12">
-          <p className="text-white text-2xl font-medium italic">{title}</p>
+          <p className="text-white text-2xl font-medium tracking-wide">
+            {title}
+          </p>
         </div>
       </div>
 

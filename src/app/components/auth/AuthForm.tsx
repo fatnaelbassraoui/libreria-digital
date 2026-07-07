@@ -100,7 +100,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
 
       {/* Submit Button */}
       <button
-        className="w-full bg-green-700 rounded-xl p-3.5 text-white font-semibold text-sm transition-all hover:bg-green-800 focus:ring-4 focus:ring-green-100 disabled:opacity-50 disabled:pointer-events-none shadow-sm flex items-center justify-center gap-2"
+        className="w-full bg-violet-600 rounded-xl p-3.5 text-white font-semibold text-sm transition-all hover:bg-violet-500 focus:ring-4 focus:ring-violet-100 disabled:opacity-50 disabled:pointer-events-none shadow-sm flex items-center justify-center gap-2"
         type="submit"
         disabled={isLoading}
       >
@@ -122,7 +122,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
             Don&apos;t have an account?{" "}
             <Link
               href="/auth/signup"
-              className="font-bold text-green-700 hover:text-green-800 hover:underline ml-1"
+              className="font-bold text-violet-700 hover:text-violet-800 hover:underline ml-1"
             >
               Sign Up
             </Link>
@@ -132,7 +132,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
             Already have an account?{" "}
             <Link
               href="/auth/signin"
-              className="font-bold text-green-700 hover:text-green-800 hover:underline ml-1"
+              className="font-bold text-violet-700 hover:text-violet-800 hover:underline ml-1"
             >
               Sign In
             </Link>
